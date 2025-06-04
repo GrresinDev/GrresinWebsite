@@ -74,4 +74,5 @@ npm run build
 
 ## Support
 
-If you encounter any issues or have questions, please send and email to ethan.steip@gmail.com
+If you encounter any issues or have questions, please send and email to
+a.alajami963@gmail.com
