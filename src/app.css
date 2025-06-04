@@ -1,0 +1,60 @@
+@import '@fontsource/almarai/300.css';
+@import '@fontsource/almarai/400.css';
+@import '@fontsource/almarai/700.css';
+@import '@fontsource/almarai/800.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	box-sizing: border-box;
+	transition: all 0.5s cubic-bezier(0.15, 0.85, 0.45, 1);
+}
+body {
+	background-color: #e2e2e2;
+	background-size: cover;
+	background-repeat: repeat-y;
+	background-image: url('lib/assets/topography.svg');
+
+	font-family: 'Almarai', sans-serif;
+}
+
+@layer base {
+	* {
+		@apply box-border;
+	}
+}
+.myshadow {
+	text-shadow: 2px 2px #a715805b;
+}
+
+@keyframes flyin {
+	from {
+		transform: translateX(-200px);
+		opacity: 0; /* Optional: Fade in as it flies in */
+	}
+	to {
+		transform: translateX(0); /* Or any other desired final X position */
+		opacity: 1; /* Optional: Fully visible at the end */
+	}
+}
+
+.flyin-element {
+	/* Apply this class to the element you want to animate */
+	animation: flyin 1s ease-out forwards; /* Adjust duration and easing as needed */
+}
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+/* Target the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+	background-color: #a71580;
+}
+
+/* Optional: Target the overall scrollbar to remove the visual space */
+::-webkit-scrollbar {
+	width: 10px; /* Remove scrollbar space */
+	height: auto;
+}
