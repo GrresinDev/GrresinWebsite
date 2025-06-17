@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { ProjectsProductsModelWithThumb } from '$lib/interface/project';
+	import type { ArtProductsModelwithThumb } from '$lib/interface/art';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { fade } from 'svelte/transition';
 
-	let { project, i }: { project: ProjectsProductsModelWithThumb; i: number } = $props();
+	let { product, i }: { product: ArtProductsModelwithThumb; i: number } = $props();
 </script>
 
 <div
@@ -14,23 +14,22 @@
 	<div
 		class="my-4 flex h-[450px] flex-col rounded-2xl border bg-gray-600/60 transition-all duration-300 ease-in-out"
 	>
-		<a href="#top" class="block aspect-square overflow-hidden">
+		<a href={product.shop} class="block aspect-square overflow-hidden">
 			<img
 				class="h-full w-full rounded-t-2xl object-cover"
-				src={project.thumbnail}
-				alt="Blogs Describing"
+				src={product.thumbnail}
+				alt="poject products"
 			/>
 		</a>
 		<div class="flex flex-grow flex-col justify-between p-2 sm:p-3 md:p-2.5">
-			<a href="#top" download={getLocale() === 'ar' ? project.name_ar : project.name}>
-				<h5
-					class="mb-3 text-center text-sm font-bold tracking-tight text-white sm:text-base md:mb-2 md:text-[15px] lg:text-lg"
-				>
-					{getLocale() === 'ar' ? project.name_ar : project.name}
-				</h5>
-			</a>
+			<h5
+				class="mb-3 text-center text-sm font-bold tracking-tight text-white sm:text-base md:mb-2 md:text-[15px] lg:text-lg"
+			>
+				{getLocale() === 'ar' ? product.name_ar : product.name}
+			</h5>
+
 			<p class="overflow-auto text-center text-[13px] text-white sm:text-sm md:text-xs lg:text-sm">
-				{getLocale() === 'ar' ? project.descriptoin_ar : project.descriptoin}
+				{getLocale() === 'ar' ? product.description_ar : product.description}
 			</p>
 		</div>
 	</div>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { enhance } from '$app/forms';
+	import logo from '$lib/assets/images/Logo.png';
 
 	import {
 		Brain,
@@ -23,6 +24,7 @@
 	import { getLocale, localizeHref } from '$lib/paraglide/runtime';
 	import { goto } from '$app/navigation';
 	import toast from 'svelte-french-toast';
+	import { page } from '$app/state';
 
 	let { data, form }: PageProps = $props();
 
@@ -76,6 +78,28 @@
 		}
 	});
 </script>
+
+<svelte:head>
+	<title>Join Graffiti Resin | Careers in Flooring Innovation & Resin Art</title>
+	<meta
+		name="description"
+		content="Explore career opportunities at Graffiti Resin. We're hiring creative and technical professionals in resin flooring, epoxy terrazzo, art resin products, and project management."
+	/>
+
+	<meta property="og:title" content="Careers at Graffiti Resin | Saudi Arabia" />
+	<meta
+		property="og:description"
+		content="Be part of the resin revolution. Join Graffiti Resin’s growing team and contribute to innovative flooring and artistic projects across Saudi Arabia."
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={page.url.href} />
+	<meta property="og:image" content={logo} />
+
+	<meta
+		name="keywords"
+		content="resin jobs Saudi Arabia, Graffiti Resin careers, epoxy flooring hiring, terrazzo flooring jobs, resin art opportunities, Saudi construction careers"
+	/>
+</svelte:head>
 
 <section class="">
 	<div class="relative z-10 max-w-full">
@@ -204,7 +228,7 @@
 							>
 								{selectedvalue}
 							</Select.Trigger>
-							<Select.Content>
+							<Select.Content side="bottom">
 								<Select.Group class="bg-white">
 									{#each data.position as postion, i (postion.id)}
 										<Select.Item

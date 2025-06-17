@@ -7,6 +7,7 @@
 	import { m } from '$lib/paraglide/messages';
 	import { fly } from 'svelte/transition';
 	import logo from '$lib/assets/images/Logo.png';
+	import { page } from '$app/state';
 
 	let { data }: PageProps = $props();
 	const myBreadcrumbs = [
@@ -14,6 +15,18 @@
 		{ label: 'Blog', link: localizeHref('/blog') }
 	];
 </script>
+<svelte:head>
+  <title>Graffiti Resin Blog | Resin Flooring Trends & Art Insights</title>
+  <meta name="description" content="Read the latest articles from Graffiti Resin: insights on epoxy terrazzo, resin art, flooring durability, and project highlights from across Saudi Arabia." />
+
+  <meta property="og:title" content="Graffiti Resin Blog | Resin Design, Flooring Tips & More" />
+  <meta property="og:description" content="Explore resin flooring trends, creative applications of epoxy and cement terrazzo, and behind-the-scenes of Graffiti Resin projects." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={page.url.href} />
+  <meta property="og:image" content={logo} />
+
+  <meta name="keywords" content="resin flooring blog, epoxy terrazzo tips, resin art insights, Saudi flooring news, Graffiti Resin updates, cement terrazzo advice" />
+</svelte:head>
 
 <div class="relative mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-8 md:grid-cols-3">
 	<aside class="order-1 space-y-8 md:order-2">

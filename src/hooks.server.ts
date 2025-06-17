@@ -3,9 +3,10 @@ import { paraglideMiddleware } from '$lib/paraglide/server';
 
 import PocketBase from 'pocketbase';
 import { sequence } from '@sveltejs/kit/hooks';
+import { POCKETBASE_URL } from '$lib/Env';
 
 export const pocketBaseHandle: Handle = async ({ event, resolve }) => {
-	const url = 'http://127.0.0.1:8090';
+	const url = POCKETBASE_URL;
 
 	event.locals.pb = new PocketBase(url);
 	

@@ -1,9 +1,11 @@
 <script lang="ts">
+	import  contact  from '$lib/assets/images/contact.jpg';
+	import  second  from '$lib/assets/images/contact_second.jpg';
 	let currentIndex = $state(0);
 	const images = [
-		'https://picsum.photos/400?random=1',
-		'https://picsum.photos/400?random=2',
-		'https://picsum.photos/400?random=3'
+		contact,
+		second,
+		
 	];
 
 	let interval: NodeJS.Timeout | undefined = $state<NodeJS.Timeout>();

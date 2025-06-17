@@ -18,8 +18,33 @@
 	import { enhance } from '$app/forms';
 	import type { PageProps } from './$types';
 	import Faq from '$lib/components/Faq.svelte';
+	import { page } from '$app/state';
 	let statview = $state(false);
 	let loading = $state(false);
+	let scrollContainer = $state<HTMLElement>();
+
+	function handleWheel(event: WheelEvent) {
+		if (!scrollContainer) return;
+		event.preventDefault();
+
+		const deltaY = event.deltaY;
+		const deltaYSign = Math.sign(deltaY);
+
+		if (deltaYSign === -1) {
+			scrollContainer.scrollBy({
+				top: 0,
+				left: -169,
+				behavior: 'auto'
+			});
+		} else {
+			scrollContainer.scrollBy({
+				top: 0,
+				left: 169,
+				behavior: 'auto'
+			});
+		}
+	}
+
 	let { data, form }: PageProps = $props();
 	$effect(() => {
 		if (form) {
@@ -33,7 +58,25 @@
 </script>
 
 <svelte:head>
-	<title>Graffiti Resin</title>
+	<title>Graffiti Resin | Resin Flooring & Artistic Resin Solutions in Saudi Arabia</title>
+	<meta
+		name="description"
+		content="Graffiti Resin leads in resin-based flooring and decorative art solutions. Explore epoxy terrazzo, cement terrazzo, and high-performance coatings made in Saudi Arabia."
+	/>
+
+	<meta property="og:title" content="Graffiti Resin | Expert Resin Flooring & Art Solutions" />
+	<meta
+		property="og:description"
+		content="Transforming surfaces with epoxy terrazzo, cement terrazzo, and resin art. Based in Saudi Arabia, Graffiti Resin delivers innovative, durable, and aesthetic solutions."
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={page.url.href} />
+	<meta property="og:image" content={logo} />
+
+	<meta
+		name="keywords"
+		content="epoxy terrazzo Saudi Arabia, cement terrazzo, resin flooring, resin art, Graffiti Resin, decorative flooring, industrial resin floor"
+	/>
 </svelte:head>
 
 <section id="Hero" class="relative overflow-hidden px-4 py-3 sm:px-6 lg:px-8">
@@ -145,11 +188,17 @@
 	</div>
 </section>
 
-<section id="project" class="hide-scroller my-8 w-full overflow-x-auto p-5 pb-4">
+<section
+	bind:this={scrollContainer}
+	onwheel={handleWheel}
+	id="project"
+	data-lenis-prevent
+	class="hide-scroller my-8 w-full overflow-x-auto p-5 pb-4"
+>
 	<div class="flex h-full w-full flex-nowrap gap-4 px-4 sm:px-8">
-		{#each data.projects_productsWithImageUrls as project, i (project.id)}
+		{#each data.art_product as product, i (product.id)}
 			<article class="min-h-[500px]">
-				<Cards {i} {project} />
+				<Cards {i} {product} />
 			</article>
 		{/each}
 	</div>
@@ -192,8 +241,8 @@
 <!--Blog/Old Project  Sectoin -->
 <section class="my-10 p-5">
 	<div class="grid grid-cols-1 gap-8 text-center sm:p-3 md:grid-cols-2">
-		{#each Array(10) as _, i}
-			<GridCard />
+		{#each data.projects_productsWithImageUrls as project, i (project.id)}
+			<GridCard {i} {project} />
 		{/each}
 	</div>
 </section>
@@ -275,43 +324,43 @@
 						type="email"
 						id="email"
 						name="email"
-						placeholder="Your Email"
+						placeholder={m.jumpy_long_termite_spur()}
 						class="w-full rounded-md border border-gray-200 py-3 pl-4 pr-12 text-start text-black placeholder-gray-500 hover:bg-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
 					/>
 				</div>
 				<p class="h-1 text-red-500">
 					{#if form?.validation?.email}
-						Wrong Email
+						{m.loved_sour_skate_clap()}
 					{/if}
 				</p>
 				<div class="relative">
-					<label for="subject" class="sr-only">Your Subject</label>
+					<label for="subject" class="sr-only">{m.hour_patient_sloth_hack()}</label>
 					<input
 						type="text"
 						id="subject"
 						name="subject"
-						placeholder="Your subject"
+						placeholder={m.gross_wide_canary_sew()}
 						class="w-full rounded-md border border-gray-200 py-3 pl-4 pr-12 text-start text-black placeholder-gray-500 hover:bg-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
 					/>
 				</div>
 				<p class="h-1 text-red-500">
 					{#if form?.validation?.subject}
-						Wrong Subject
+						{m.sad_neat_piranha_sail()}
 					{/if}
 				</p>
 				<div class="relative">
-					<label for="message" class="sr-only">Your message</label>
+					<label for="message" class="sr-only">{m.fluffy_aware_shell_offer()}</label>
 					<input
 						type="text"
 						id="message"
 						name="message"
-						placeholder="Your Message"
+						placeholder={m.knotty_stale_piranha_transform()}
 						class="w-full rounded-md border border-gray-200 py-3 pl-4 pr-12 text-start text-black placeholder-gray-500 hover:bg-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
 					/>
 				</div>
 				<p class="h-1 text-red-500">
 					{#if form?.validation?.message}
-						Wrong Message
+						{m.mushy_tangy_dingo_pat()}
 					{/if}
 				</p>
 
@@ -321,7 +370,7 @@
 						type="submit"
 						class="w-full rounded-md bg-blue-400 px-4 py-3 font-bold text-white transition duration-150 ease-in-out hover:bg-[#a71580] focus:outline-none focus:ring-2 focus:ring-[#a71580] focus:ring-offset-2"
 					>
-						Submit
+						{m.jolly_male_warthog_vent()}
 					</button>
 				</div>
 			</form>
@@ -335,5 +384,6 @@
 	}
 	.hide-scroller {
 		scrollbar-width: none;
+		scroll-behavior: smooth;
 	}
 </style>

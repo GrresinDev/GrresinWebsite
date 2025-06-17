@@ -1,11 +1,13 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { contactUsSchema } from '$lib/schemas/contact';
-import type { ProjectsProductsModel,ProjectsProductsModelWithThumb  } from '$lib/interface/project';
+import type { ProjectsProductsModel, ProjectsProductsModelWithThumb } from '$lib/interface/project';
 import type { FAQModel } from '$lib/interface/faq';
+import type { ArtProductsModel, ArtProductsModelwithThumb } from '$lib/interface/art';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const pb = locals.pb;
+	const art_products: ArtProductsModel[] = await pb.collection('art_products').getFullList();
 
 	const faq: FAQModel[] = await pb.collection('faq').getFullList();
 
@@ -13,12 +15,19 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.collection('projects_products')
 		.getFullList();
 
-		const projects_productsWithImageUrls:ProjectsProductsModelWithThumb[] = projects_products.map(post => ({
+	const projects_productsWithImageUrls: ProjectsProductsModelWithThumb[] = projects_products.map(
+		(post) => ({
 			...post,
-			thumbnail: pb.files.getURL(post, post.image)
-		}));
+			thumbnail: pb.files.getURL(post, post.image),
+			tds_url: pb.files.getURL(post, post.tds)
+		})
+	);
 
-	return { faq, projects_productsWithImageUrls };
+	const art_products_WithImageUrls: ArtProductsModelwithThumb[] = art_products.map((post) => ({
+		...post,
+		thumbnail: pb.files.getURL(post, post.image)
+	}));
+	return { faq, projects_productsWithImageUrls, art_product: art_products_WithImageUrls };
 };
 
 export const actions: Actions = {

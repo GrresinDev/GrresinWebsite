@@ -3,7 +3,7 @@
 	import { Toaster } from 'svelte-french-toast';
 	import Navbar from '$lib/components/layout/Navbar.svelte';
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
-	import { page, navigating } from '$app/state';
+	import { page } from '$app/state';
 	import ScrollProgress from '$lib/ScrollProgress.svelte';
 
 	import { SvelteLenis } from 'svelte-lenis';
@@ -14,14 +14,13 @@
 <ScrollProgress />
 <Toaster />
 <Navbar />
-
-{#key data.url}
-	<SvelteLenis root>
+<SvelteLenis root>
+	{#key data.url}
 		<div>
 			{@render children()}
 		</div>
-	</SvelteLenis>
-{/key}
+	{/key}
+</SvelteLenis>
 
 <div style="display:none">
 	{#each locales as locale}

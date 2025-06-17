@@ -3,6 +3,7 @@
 
 	import Review from '$lib/Review.svelte';
 	import logo from '$lib/assets/images/Logo.png';
+
 	import TimelineCard from '$lib/TimelineCard.svelte';
 	import {
 		Building,
@@ -16,6 +17,7 @@
 		Trophy
 	} from '@lucide/svelte';
 	import type { PageData } from './$types';
+	import { page } from '$app/state';
 
 	let { data }: { data: PageData } = $props();
 
@@ -79,6 +81,31 @@
 		}
 	];
 </script>
+
+<svelte:head>
+	<title>About Graffiti Resin | Leaders in Resin Innovation in Saudi Arabia</title>
+	<meta
+		name="description"
+		content="Learn about Graffiti Resin – our story, values, and mission to innovate flooring and artistic resin solutions with epoxy terrazzo, cement terrazzo, and creative products."
+	/>
+
+	<meta
+		property="og:title"
+		content="Meet Graffiti Resin: Saudi Arabia’s Resin Flooring & Art Experts"
+	/>
+	<meta
+		property="og:description"
+		content="With a vision rooted in quality and design, Graffiti Resin pioneers artistic and functional resin surfaces across the region."
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={page.url.href} />
+	<meta property="og:image" content={logo} />
+
+	<meta
+		name="keywords"
+		content="about Graffiti Resin, Saudi epoxy company, resin floor specialists, cement terrazzo team, resin design experts, resin flooring history"
+	/>
+</svelte:head>
 
 <div id="hero" class=" relative z-0 py-16 md:pb-20 md:pt-32">
 	<div class="container mx-auto px-4 xl:max-w-6xl">

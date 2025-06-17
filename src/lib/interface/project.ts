@@ -29,31 +29,33 @@ export interface ProjectWithThumbNail extends ProjectModel {
 	after_thumbnail: string | null;
 }
 
-
 export interface ProjectsProductsModel {
-    collectionId:   string;
-    collectionName: string;
-    id:             string;
-    descriptoin:    string;
-    descriptoin_ar: string;
-    image:          string;
-    name:           string;
-    name_ar:        string;
-    created:        Date;
-    updated:        Date;
+	collectionId: string;
+	collectionName: string;
+	id: string;
+	descriptoin: string;
+	descriptoin_ar: string;
+	image: string;
+	name: string;
+	name_ar: string;
+	created: Date;
+	updated: Date;
+	tds: string;
 }
 
-
 export interface ProjectsProductsModelWithThumb {
-    collectionId:   string;
-    collectionName: string;
-    id:             string;
-    descriptoin:    string;
-	thumbnail:		string;
-    descriptoin_ar: string;
-    image:          string;
-    name:           string;
-    name_ar:        string;
-    created:        Date;
-    updated:        Date;
+	collectionId: string;
+	collectionName: string;
+	id: string;
+	descriptoin: string;
+	descriptoin_ar: string;
+	image: string;
+	name: string;
+	name_ar: string;
+	created: Date;
+	updated: Date;
+}
+export interface ProjectsProductsModelWithThumb extends ProjectsProductsModel {
+	thumbnail: string | null;
+	tds_url: string | null;
 }
