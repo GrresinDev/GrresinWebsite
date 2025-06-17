@@ -9,7 +9,7 @@ export const pocketBaseHandle: Handle = async ({ event, resolve }) => {
 	const url = POCKETBASE_URL;
 
 	event.locals.pb = new PocketBase(url);
-	
+
 	const response = await resolve(event);
 
 	return response;
