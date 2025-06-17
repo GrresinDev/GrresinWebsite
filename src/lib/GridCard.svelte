@@ -7,6 +7,7 @@
 <a
 	href={project.tds_url}
 	download="SuggestedFileName.pdf"
+	target="_blank"
 	class="flex w-full max-w-3xl flex-col space-y-3 rounded-2xl bg-white p-4 shadow-lg md:p-8"
 >
 	<div

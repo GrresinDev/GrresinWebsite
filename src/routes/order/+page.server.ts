@@ -1,5 +1,12 @@
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 
-export const load = (async () => {
+export const load: PageServerLoad = async () => {
 	return {};
-}) satisfies PageServerLoad;
+};
+export const actions: Actions = {
+	default: async ({ request }) => {
+		const formData = await request.formData();
+		const rawData = Object.fromEntries(formData);
+		console.log(rawData);
+	}
+};

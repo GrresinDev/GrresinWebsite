@@ -20,7 +20,7 @@
 			text: m.contact()
 		},
 		{ text: m.nav_blog(), href: localizeHref('/blog') },
-		{ text: m.nav_floor(), href: localizeHref('/#top') },
+		{ text: m.nav_floor(), href: localizeHref('/order') },
 		{ text: m.projects(), href: localizeHref('/projects') },
 		{ text: m.aqua_mad_frog_gleam(), href: localizeHref('/careers') }
 	];

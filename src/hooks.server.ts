@@ -1,4 +1,4 @@
-import type { Handle } from '@sveltejs/kit';
+import { error, type Handle } from '@sveltejs/kit';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 
 import PocketBase from 'pocketbase';
@@ -8,8 +8,15 @@ import { POCKETBASE_URL } from '$env/static/private';
 export const pocketBaseHandle: Handle = async ({ event, resolve }) => {
 	const url = POCKETBASE_URL;
 
-	event.locals.pb = new PocketBase(url);
+	try {
+		event.locals.pb = new PocketBase(url);
+	} catch (e) {
+		console.error('PocketBase connection failed:', e);
 
+		error(500, {
+			message: 'Failed to connect to the backend services. Please try again later.'
+		});
+	}
 	const response = await resolve(event);
 
 	return response;

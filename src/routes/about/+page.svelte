@@ -18,6 +18,8 @@
 	} from '@lucide/svelte';
 	import type { PageData } from './$types';
 	import { page } from '$app/state';
+	import { m } from '$lib/paraglide/messages';
+	import { localizeHref } from '$lib/paraglide/runtime';
 
 	let { data }: { data: PageData } = $props();
 
@@ -65,19 +67,19 @@
 	];
 	const workwithusData = [
 		{
-			header: 'Secure in Every Step',
+			header: m.vexed_great_kudu_hike(),
 			Icon: Lock,
-			body: 'From mixing to final touches, our resins are designed for safe, controlled use in real-world environments. We focus on reducing risks during application — with low-VOC formulas, anti-drip properties, and packaging built for clean, easy handling. Your workflow stays safe, smooth, and mess-free.'
+			body: m.slow_nimble_rabbit_fetch()
 		},
 		{
-			header: 'Crafted In-House',
+			header: m.big_keen_cow_fulfill(),
 			Icon: TestTubeDiagonal,
-			body: 'Every component in our resin formulas is developed, tested, and manufactured by our team. Unlike other brands that rely on generic mixes, we control every ingredient to ensure premium performance, clarity, and weather resistance. We’re makers — not just distributors.'
+			body:m.good_top_parakeet_flip()
 		},
 		{
-			header: 'Built for Safety',
+			header: m.solid_sweet_panda_foster(),
 			Icon: ShieldPlus,
-			body: "We prioritize your safety at every level. Our graffiti resin products are non-toxic, low-odor, and engineered to meet the highest standards of durability and environmental care. Whether you're a street artist or a muralist, you can create confidently knowing our resins are safe for both you and your surroundings."
+			body:m.aqua_bright_stork_pray()
 		}
 	];
 </script>
@@ -123,19 +125,23 @@
 				<div class="mt-6 text-center lg:mt-0 lg:text-left">
 					<div class="mb-12">
 						<h1 class="mb-4 text-4xl font-bold leading-normal text-black">
-							We are Graffiti Resin <br />
+							{m.tense_lost_panther_emerge()} <br />
 						</h1>
 						<p class="mx-auto pb-2 text-xl font-light leading-relaxed text-gray-500">
-							We firmly believe in the power of art and the spirit of giving. Our specialization is
-							evident in the sale and manufacturing of resin products
+							{m.spare_civil_guppy_cheer()}
 						</p>
 					</div>
 
-					<Button class=" mx-2 min-w-52 bg-white text-lg font-semibold"
-						><Mail class="mr-2 size-4" />Work With us</Button
+					<Button
+						href={localizeHref('/careers')}
+						class=" mx-2 min-w-52 bg-white text-lg font-semibold"
+						><Mail class="mr-2 size-4" />{m.even_known_husky_quell()}</Button
 					>
-					<Button class="min-w-52 bg-[#a71580] text-lg  font-semibold text-white hover:text-black">
-						<Mail class="mr-2 size-4" />Contact Us</Button
+					<Button
+						href={localizeHref('/#contact')}
+						class="min-w-52 bg-[#a71580] text-lg  font-semibold text-white hover:text-black"
+					>
+						<Mail class="mr-2 size-4" />{m.vivid_home_raven_slurp()}</Button
 					>
 				</div>
 			</div>
@@ -149,11 +155,10 @@
 	<div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-16 lg:px-6">
 		<div class="mb-8 max-w-screen-md lg:mb-16">
 			<h2 class="mb-4 text-4xl font-extrabold tracking-tight text-[#a71580]">
-				What Makes Us Special
+				{m.gray_inner_cougar_swim()}
 			</h2>
 			<p class="text-gray-500 dark:text-gray-400 sm:text-xl">
-				Prequalification, practice, technical support in addition to keen supervision on our sites
-				Our products are fumeless, odorless, non-toxic and flame resistant.
+				{m.aloof_moving_jaguar_cheer()}
 			</p>
 		</div>
 		<div class="space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 lg:grid-cols-3">
@@ -182,10 +187,10 @@
 		>
 			<div class="container mx-auto px-4 text-center sm:px-6 lg:px-8">
 				<h1 class="mb-6 text-4xl font-bold tracking-tight text-[#a71580] sm:text-5xl md:text-6xl">
-					Our Journey in KSA
+					{m.raw_mellow_wren_zoom()}
 				</h1>
 				<p class="mx-auto mb-10 max-w-2xl text-lg text-foreground/80 sm:text-xl">
-					Key milestones that mark our growth and commitment in Saudi Arabia.
+					{m.day_less_starfish_wish()}
 				</p>
 			</div>
 

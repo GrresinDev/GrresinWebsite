@@ -135,4 +135,4 @@
 	</div>
 </section>
 
-<Estiamtor />
+<div class="min-h-[10rem]"></div>

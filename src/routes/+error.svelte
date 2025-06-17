@@ -2,4 +2,6 @@
 	import { page } from '$app/state';
 </script>
 
-<h1>{page.status}: {page.error?.message}</h1>
+<div class=" container mx-auto min-h-screen text-center">
+	<h1>{page.status}: {page.error?.message}</h1>
+</div>

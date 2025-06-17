@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	] = await Promise.all([
 		pb.collection('projects').getFullList<ProjectModel>(),
 		pb.collection('projects').getFirstListItem<ProjectModel>('', { sort: '-created' }),
-		pb.collection('website_images').getOne<ImagesModel>('0e3c5430xuvt90m'),
+		pb.collection('website_images').getOne<ImagesModel>('a9622cf854s90a4'),
 		pb.collection('project_types').getFullList<ProjecctTypeModel[]>()
 	]);
 
