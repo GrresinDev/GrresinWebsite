@@ -7,6 +7,7 @@ import type { ArtProductsModel, ArtProductsModelwithThumb } from '$lib/interface
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const pb = locals.pb;
+
 	const art_products: ArtProductsModel[] = await pb.collection('art_products').getFullList();
 
 	const faq: FAQModel[] = await pb.collection('faq').getFullList();

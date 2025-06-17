@@ -10,7 +10,6 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import toast from 'svelte-french-toast';
-	import { POCKETBASE_URL } from '$lib/Env';
 
 	let { data }: { data: PageData } = $props();
 	let copied = $state(false);
@@ -107,7 +106,7 @@
 				<figure>
 					<img
 						class="w-full rounded-xl object-cover"
-						src="{POCKETBASE_URL}/api/files/{post.collectionId}/{post.id}/{post.image}"
+						src="https://cms-grresin.fly.dev/api/files/{post.collectionId}/{post.id}/{post.image}"
 						alt="Resine Creating "
 					/>
 					<figcaption class="mt-3 text-center text-sm text-gray-500 dark:text-neutral-500">

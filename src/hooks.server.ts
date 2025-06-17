@@ -3,7 +3,7 @@ import { paraglideMiddleware } from '$lib/paraglide/server';
 
 import PocketBase from 'pocketbase';
 import { sequence } from '@sveltejs/kit/hooks';
-import { POCKETBASE_URL } from '$lib/Env';
+import { POCKETBASE_URL } from '$env/static/private';
 
 export const pocketBaseHandle: Handle = async ({ event, resolve }) => {
 	const url = POCKETBASE_URL;
@@ -26,4 +26,4 @@ const paraglideHandle: Handle = ({ event, resolve }) =>
 		});
 	});
 
-export const handle = sequence(paraglideHandle, pocketBaseHandle);
+export const handle = sequence(pocketBaseHandle, paraglideHandle);
