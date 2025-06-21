@@ -3,6 +3,7 @@ import { paraglideMiddleware } from '$lib/paraglide/server';
 
 import PocketBase from 'pocketbase';
 import { sequence } from '@sveltejs/kit/hooks';
+import { ClientResponseError } from 'pocketbase';
 import { POCKETBASE_URL } from '$env/static/private';
 
 export const pocketBaseHandle: Handle = async ({ event, resolve }) => {
@@ -10,13 +11,23 @@ export const pocketBaseHandle: Handle = async ({ event, resolve }) => {
 
 	try {
 		event.locals.pb = new PocketBase(url);
-	} catch (e) {
-		console.error('PocketBase connection failed:', e);
+	} catch (e: unknown) {
+		// Use unknown for caught errors
+		console.error('PocketBase client initialization failed in hook:', e);
 
-		error(500, {
-			message: 'Failed to connect to the backend services. Please try again later.'
-		});
+		if (e instanceof ClientResponseError) {
+			error(
+				e.status,
+				e.response?.message || e.message || 'PocketBase API connection error during setup.'
+			);
+		} else if (e instanceof Error) {
+			error(500, `Failed to initialize backend connection: ${e.message}`);
+		} else {
+			// Catch anything else unknown
+			error(500, 'Failed to establish backend connection due to an unknown error.');
+		}
 	}
+
 	const response = await resolve(event);
 
 	return response;

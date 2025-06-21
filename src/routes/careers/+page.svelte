@@ -1,7 +1,9 @@
 <script lang="ts">
 	import * as Select from '$lib/components/ui/select/index.js';
+	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
 	import { enhance } from '$app/forms';
 	import logo from '$lib/assets/images/Logo.png';
+	import { Button } from '$lib/components/ui/button/index.js';
 
 	import {
 		Brain,
@@ -29,6 +31,7 @@
 	let { data, form }: PageProps = $props();
 
 	let value = $state<string>('');
+	let loading = $state(false);
 	const selectedvalue = $derived(
 		value
 			? getLocale() === 'ar'
@@ -176,7 +179,18 @@
 
 			<!--Form Start-->
 			<div class="  my-8 basis-1/2 rounded-2xl bg-white">
-				<form method="POST" enctype="multipart/form-data" use:enhance>
+				<form
+					method="POST"
+					enctype="multipart/form-data"
+					use:enhance={() => {
+						loading = true;
+						return ({ update }) => {
+							update({ invalidateAll: false }).finally(async () => {
+								loading = false;
+							});
+						};
+					}}
+				>
 					<div class="flex w-full flex-col gap-1.5 p-8">
 						<Label>
 							<h1 class="w-full text-3xl">
@@ -190,11 +204,12 @@
 							type="name"
 							name="name"
 							id="name"
-							placeholder="Name"
+							placeholder={m.vivid_direct_gopher_belong()}
+							required
 						/>
 						<p class="h-1 text-red-500">
 							{#if form?.validation?.name}
-								Wrong name
+								{m.every_fine_crow_yell()}
 							{/if}
 						</p>
 					</div>
@@ -212,6 +227,7 @@
 							id="email"
 							name="email"
 							placeholder="example@example.com"
+							required
 						/>
 					</div>
 					<div class=" flex w-full flex-col gap-1.5 p-8">
@@ -222,7 +238,7 @@
 								<hr class="h-[2px] w-1/2 bg-blue-500" />
 							</h1>
 						</Label>
-						<Select.Root type="single" name="position" bind:value>
+						<Select.Root type="single" name="position" bind:value required>
 							<Select.Trigger
 								class="border-b border-l-0 border-r-0 border-t-0 border-gray-500    bg-transparent text-xl  placeholder:text-gray-500 focus:border-gray-500"
 							>
@@ -255,7 +271,8 @@
 							id="message"
 							class=" border-b border-l-0 border-r-0 border-t-0 border-gray-500    bg-transparent text-2xl  placeholder:text-gray-500 focus:border-gray-500 "
 							name="message"
-							placeholder="Type your message here."
+							placeholder={m.sunny_trick_manatee_urge()}
+							required
 						/>
 					</div>
 					<div class="flex w-full flex-col gap-1.5 p-8">
@@ -274,10 +291,14 @@
 						/>
 					</div>
 					<div class="flex w-full flex-col gap-1.5 p-8">
-						<button
+						<Button
 							type="submit"
 							class="rounded-2xl border border-blue-500 text-3xl hover:bg-blue-500 hover:text-white"
-							>{m.known_jolly_cat_hurl()}</button
+						>
+							{#if loading}
+								<LoaderCircle class="animate-spin" />
+							{/if}
+							{m.known_jolly_cat_hurl()}</Button
 						>
 					</div>
 				</form>

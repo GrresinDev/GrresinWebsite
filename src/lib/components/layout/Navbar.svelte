@@ -27,13 +27,13 @@
 </script>
 
 <header class="w-full border-b bg-black text-white" id="top">
-	<div class="flex h-16 items-center justify-between px-4">
+	<div class="felx-row flex h-16 items-center justify-between px-4">
 		<a
 			class="flex w-1/3 items-center gap-2 md:w-fit"
 			href={localizeHref('/')}
 			aria-label="Grresin Home"
 		>
-			<div class="rounded-lg border p-2 2xl:hidden">
+			<div class="rounded-lg p-2 2xl:hidden">
 				<img src={logo} alt="Grresin Logo" class="h-10 w-10 object-cover" />
 			</div>
 			<div class="hidden 2xl:block">

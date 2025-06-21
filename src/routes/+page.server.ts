@@ -1,34 +1,59 @@
 import type { PageServerLoad, Actions } from './$types';
-import { fail } from '@sveltejs/kit';
+import { ClientResponseError } from 'pocketbase';
+import { error, fail } from '@sveltejs/kit';
 import { contactUsSchema } from '$lib/schemas/contact';
 import type { ProjectsProductsModel, ProjectsProductsModelWithThumb } from '$lib/interface/project';
 import type { FAQModel } from '$lib/interface/faq';
 import type { ArtProductsModel, ArtProductsModelwithThumb } from '$lib/interface/art';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, setHeaders }) => {
+	setHeaders({
+		'Cache-Control': `max-age=0, s-maxage=${60 * 60}`
+	});
+
 	const pb = locals.pb;
 
-	const art_products: ArtProductsModel[] = await pb.collection('art_products').getFullList();
+	try {
+		const [art_products, faq, projects_products]: [
+			ArtProductsModel[],
+			FAQModel[],
+			ProjectsProductsModel[]
+		] = await Promise.all([
+			pb.collection('art_products').getFullList<ArtProductsModel>(),
+			pb.collection('faq').getFullList<FAQModel>(),
+			pb.collection('projects_products').getFullList<ProjectsProductsModel>()
+		]);
 
-	const faq: FAQModel[] = await pb.collection('faq').getFullList();
+		const projects_productsWithImageUrls: ProjectsProductsModelWithThumb[] = projects_products.map(
+			(post) => ({
+				...post,
+				thumbnail: pb.files.getURL(post, post.image),
 
-	const projects_products: ProjectsProductsModel[] = await pb
-		.collection('projects_products')
-		.getFullList();
+				tds_url: post.tds ? pb.files.getURL(post, post.tds) : undefined
+			})
+		);
 
-	const projects_productsWithImageUrls: ProjectsProductsModelWithThumb[] = projects_products.map(
-		(post) => ({
+		const art_products_WithImageUrls: ArtProductsModelwithThumb[] = art_products.map((post) => ({
 			...post,
-			thumbnail: pb.files.getURL(post, post.image),
-			tds_url: pb.files.getURL(post, post.tds)
-		})
-	);
+			thumbnail: pb.files.getURL(post, post.image)
+		}));
 
-	const art_products_WithImageUrls: ArtProductsModelwithThumb[] = art_products.map((post) => ({
-		...post,
-		thumbnail: pb.files.getURL(post, post.image)
-	}));
-	return { faq, projects_productsWithImageUrls, art_product: art_products_WithImageUrls };
+		return { faq, projects_productsWithImageUrls, art_products: art_products_WithImageUrls };
+	} catch (e: unknown) {
+		console.error('Error fetching or processing data in load function:', e);
+
+		if (e instanceof ClientResponseError) {
+			if (e.isAbort) {
+				error(408, 'Request timed out while loading data.');
+			} else {
+				const errorMessage =
+					e.response?.message || e.message || 'An unexpected API error occurred.';
+				error(e.status, errorMessage);
+			}
+		} else {
+			error(500, 'Failed to load page content due to an internal server error.');
+		}
+	}
 };
 
 export const actions: Actions = {

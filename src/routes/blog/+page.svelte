@@ -8,6 +8,7 @@
 	import { fly } from 'svelte/transition';
 	import logo from '$lib/assets/images/Logo.png';
 	import { page } from '$app/state';
+	import Empty from '$lib/Empty.svelte';
 
 	let { data }: PageProps = $props();
 	const myBreadcrumbs = [
@@ -15,31 +16,58 @@
 		{ label: 'Blog', link: localizeHref('/blog') }
 	];
 </script>
+
 <svelte:head>
-  <title>Graffiti Resin Blog | Resin Flooring Trends & Art Insights</title>
-  <meta name="description" content="Read the latest articles from Graffiti Resin: insights on epoxy terrazzo, resin art, flooring durability, and project highlights from across Saudi Arabia." />
+	<!-- Primary Meta Tags -->
+	<title>{m.company_name()} Blogs | Resin Tips & Projects in Saudi Arabia</title>
+	<meta name="title" content="{m.company_name()} Blogs | Resin Tips & Projects in Saudi Arabia" />
+	<meta
+		name="description"
+		content="Explore resin art tutorials, epoxy tips, and DIY projects from {m.company_name()}, a leading resin products company based in Saudi Arabia."
+	/>
 
-  <meta property="og:title" content="Graffiti Resin Blog | Resin Design, Flooring Tips & More" />
-  <meta property="og:description" content="Explore resin flooring trends, creative applications of epoxy and cement terrazzo, and behind-the-scenes of Graffiti Resin projects." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={page.url.href} />
-  <meta property="og:image" content={logo} />
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://grresin.com/blogs" />
+	<meta
+		property="og:title"
+		content="{m.company_name()} Blogs | Resin Tips & Projects in Saudi Arabia"
+	/>
+	<meta
+		property="og:description"
+		content="Explore resin art tutorials, epoxy tips, and DIY projects from {m.company_name()}, a leading resin products company based in Saudi Arabia."
+	/>
+	<meta property="og:image" content={logo} />
 
-  <meta name="keywords" content="resin flooring blog, epoxy terrazzo tips, resin art insights, Saudi flooring news, Graffiti Resin updates, cement terrazzo advice" />
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:url" content="https://grresin.com/blogs" />
+	<meta
+		name="twitter:title"
+		content="{m.company_name()} Blogs | Resin Tips & Projects in Saudi Arabia"
+	/>
+	<meta
+		name="twitter:description"
+		content="Explore resin art tutorials, epoxy tips, and DIY projects from {m.company_name()}, a leading resin products company based in Saudi Arabia."
+	/>
+	<meta name="twitter:image" content="https://grresin.com/og-cover.jpg" />
+
+	<!-- Canonical -->
+	<link rel="canonical" href="https://grresin.com/blogs" />
 </svelte:head>
 
 <div class="relative mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-8 md:grid-cols-3">
 	<aside class="order-1 space-y-8 md:order-2">
 		<div class="text-center">
 			<img src={logo} alt="Graffiti Resin Logo" class="mx-auto mb-4 h-auto w-40" />
-			<div class="mx-auto my-4 h-32 w-32 rounded-full bg-black"></div>
+
 			<p class="text-sm text-gray-600">
 				{m.welcomeDesc()}
 			</p>
 		</div>
 
 		<div>
-			<h3 class="mb-2 font-semibold">Follow Us</h3>
+			<h3 class="mb-2 font-semibold">{m.brave_awake_pelican_amuse()}</h3>
 			<ul class="space-y-2">
 				<li>
 					<a
@@ -81,14 +109,14 @@
 		</div>
 
 		<div>
-			<h3 class="mb-2 font-semibold">Recent Posts</h3>
+			<h3 class="mb-2 font-semibold">{m.cuddly_factual_lamb_quiz()}</h3>
 			<div class="z-0 h-24 w-full bg-gray-300 transition-all hover:z-10 hover:scale-110">
 				<article
 					class="flex flex-row space-x-4 space-y-0 hover:z-10 hover:scale-110"
 					in:fly|global={{ y: -200 }}
 				>
 					<a
-						href={localizeHref(`/blog/${data.recentPost.id}`)}
+						href={localizeHref(`/blog/${data.recentPost.slug}`)}
 						class="flex w-full flex-row space-x-4 space-y-0 no-underline hover:no-underline"
 					>
 						<div class="h-24 flex-shrink-0 sm:w-32">
@@ -148,30 +176,32 @@
 			</Carousel.Root>
 		</div>
 
-		<h3 class="mb-6 text-2xl font-bold">Posts</h3>
+		<h3 class="mb-6 text-2xl font-bold">{m.inclusive_active_gopher_talk()}</h3>
 
 		<div class="space-y-8">
-			{#each data.posts as post, i (post.id)}
-				<article
-					class="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0"
-					in:fly|global={{ x: -200 }}
-				>
-					<div class="h-24 w-full flex-shrink-0 sm:w-32">
-						<img class="h-full w-full" src={post.thumbnail} alt="post" />
-					</div>
-					<div>
-						<h4 class="font-semibold rtl:mx-2">
-							{i + 1} &nbsp; {getLocale() === 'ar' ? post.title_ar : post.title}
-						</h4>
-						<p class="mb-2 line-clamp-3 text-lg text-gray-500 rtl:mx-2">
-							{@html getLocale() === 'ar' ? post.desc_ar : post.desc}
-						</p>
-						<a href={localizeHref(`/blog/${post.slug}`)} class="text-sm text-blue-500"
-							>{m.awful_fair_ibex_pause()}</a
-						>
-					</div>
-				</article>
-			{/each}
+			<Empty items={data.posts}>
+				{#each data.posts as post, i (post.id)}
+					<article
+						class="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0"
+						in:fly|global={{ x: -200 }}
+					>
+						<div class="h-24 w-full flex-shrink-0 sm:w-32">
+							<img class="h-full w-full" src={post.thumbnail} alt="post" />
+						</div>
+						<div>
+							<h4 class="font-semibold rtl:mx-2">
+								{i + 1} &nbsp; {getLocale() === 'ar' ? post.title_ar : post.title}
+							</h4>
+							<p class="mb-2 line-clamp-3 text-lg text-gray-500 rtl:mx-2">
+								{@html getLocale() === 'ar' ? post.desc_ar : post.desc}
+							</p>
+							<a href={localizeHref(`/blog/${post.slug}`)} class="text-sm text-blue-500"
+								>{m.awful_fair_ibex_pause()}</a
+							>
+						</div>
+					</article>
+				{/each}
+			</Empty>
 		</div>
 	</div>
 </div>

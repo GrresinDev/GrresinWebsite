@@ -37,14 +37,62 @@
 </script>
 
 <svelte:head>
-	<title>{data.project.slug}</title>
+	<!-- Primary Meta Tags -->
+	<title
+		>{getLocale() === 'ar' ? data.project.title_ar : data.project.title} | {m.company_name()} Projects</title
+	>
+	<meta
+		name="title"
+		content="{getLocale() === 'ar'
+			? data.project.title_ar
+			: data.project.title} | {m.company_name()} Projects"
+	/>
 	<meta
 		name="description"
-		content="A brief, compelling summary of your project 150–160 characters. Example: 'Explore [Project Name], a [type of project] designed to [solve X problem/achieve Y goal]. Learn more about its features, tools, and impact.'"
+		content={getLocale() === 'ar'
+			? data.project.desc_ar.replace(/<[^>]+>/g, '').slice(0, 160)
+			: data.project.desc.replace(/<[^>]+>/g, '').slice(0, 160)}
 	/>
+	<meta
+		name="keywords"
+		content="resin projects, epoxy before and after, resin flooring, Saudi Arabia epoxy, {m.company_name()}, custom resin installations"
+	/>
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content={fullUrl} />
+	<meta
+		property="og:title"
+		content={getLocale() === 'ar' ? data.project.title_ar : data.project.title}
+	/>
+	<meta
+		property="og:description"
+		content={getLocale() === 'ar'
+			? data.project.desc_ar.replace(/<[^>]+>/g, '').slice(0, 160)
+			: data.project.desc.replace(/<[^>]+>/g, '').slice(0, 160)}
+	/>
+	<meta property="og:image" content={data.afterImages?.[0] || data.beforeImages?.[0]} />
+
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:url" content={fullUrl} />
+	<meta
+		name="twitter:title"
+		content={getLocale() === 'ar' ? data.project.title_ar : data.project.title}
+	/>
+	<meta
+		name="twitter:description"
+		content={getLocale() === 'ar'
+			? data.project.desc_ar.replace(/<[^>]+>/g, '').slice(0, 160)
+			: data.project.desc.replace(/<[^>]+>/g, '').slice(0, 160)}
+	/>
+	<meta name="twitter:image" content={data.afterImages?.[0] || data.beforeImages?.[0]} />
+
+	<!-- Canonical -->
+	<link rel="canonical" href={fullUrl} />
 </svelte:head>
 
-<!-- Blog Article -->
+<!-- Project Article -->
 <div class="mx-auto max-w-3xl px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-10">
 	<div class="max-w-2xl">
 		<!-- Avatar Media -->

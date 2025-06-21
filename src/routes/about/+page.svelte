@@ -3,7 +3,7 @@
 
 	import Review from '$lib/Review.svelte';
 	import logo from '$lib/assets/images/Logo.png';
-
+	import { getLocale } from '$lib/paraglide/runtime';
 	import TimelineCard from '$lib/TimelineCard.svelte';
 	import {
 		Building,
@@ -20,6 +20,7 @@
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages';
 	import { localizeHref } from '$lib/paraglide/runtime';
+	import Empty from '$lib/Empty.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -65,6 +66,45 @@
 			Icon: Milestone
 		}
 	];
+	const timelineData_ar = [
+		{
+			id: 'event1',
+			date: '2018',
+			title: 'تأسيس الشركة في المملكة العربية السعودية',
+			description:
+				'أسست ريزن ترانسفورم (ResinTransform) حضورها في المملكة العربية السعودية، مع التركيز على حلول الأرضيات الراتنجية المتخصصة.',
+			Icon: Rocket
+		},
+		{
+			id: 'event2',
+			date: '2020',
+			title: 'أول مشروع تجاري كبير',
+			description: 'أكملت بنجاح مشروع أرضيات إيبوكسي واسع النطاق لمجمع أعمال مرموق في الرياض.',
+			Icon: Building
+		},
+		{
+			id: 'event3',
+			date: '2022',
+			title: 'التوسع في القطاع الصناعي',
+			description: 'وسعت خدماتها لتلبية الاحتياجات المتطلبة للعملاء الصناعيين في الدمام والجبيل.',
+			Icon: Factory
+		},
+		{
+			id: 'event4',
+			date: '2023',
+			title: 'تقدير الجودة',
+			description:
+				'حصلت على جائزة صناعية للجودة المتميزة والابتكار في حلول الأرضيات الراتنجية في منطقة دول مجلس التعاون الخليجي.',
+			Icon: Trophy
+		},
+		{
+			id: 'event5',
+			date: 'مستمر',
+			title: 'الالتزام برؤية 2030',
+			description: 'مواءمة نمونا وممارسات الاستدامة لدينا مع رؤية المملكة العربية السعودية 2030.',
+			Icon: Milestone
+		}
+	];
 	const workwithusData = [
 		{
 			header: m.vexed_great_kudu_hike(),
@@ -74,12 +114,12 @@
 		{
 			header: m.big_keen_cow_fulfill(),
 			Icon: TestTubeDiagonal,
-			body:m.good_top_parakeet_flip()
+			body: m.good_top_parakeet_flip()
 		},
 		{
 			header: m.solid_sweet_panda_foster(),
 			Icon: ShieldPlus,
-			body:m.aqua_bright_stork_pray()
+			body: m.aqua_bright_stork_pray()
 		}
 	];
 </script>
@@ -148,9 +188,9 @@
 		</div>
 	</div>
 </div>
-
-<Review reviews={data.reviews} />
-
+<Empty items={data.reviews}>
+	<Review reviews={data.reviews} />
+</Empty>
 <section class="my-8 shadow-md">
 	<div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-16 lg:px-6">
 		<div class="mb-8 max-w-screen-md lg:mb-16">
@@ -195,9 +235,15 @@
 			</div>
 
 			<div class="relative">
-				{#each timelineData as event, index (event.id)}
-					<TimelineCard {event} isLast={index === timelineData.length - 1} />
-				{/each}
+				{#if getLocale() === 'ar'}
+					{#each timelineData_ar as event, index (event.id)}
+						<TimelineCard {event} isLast={index === timelineData.length - 1} />
+					{/each}
+				{:else}
+					{#each timelineData as event, index (event.id)}
+						<TimelineCard {event} isLast={index === timelineData.length - 1} />
+					{/each}
+				{/if}
 			</div>
 		</section>
 	</div>

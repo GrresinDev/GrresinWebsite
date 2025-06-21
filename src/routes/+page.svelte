@@ -1,5 +1,7 @@
 <script lang="ts">
 	import toast from 'svelte-french-toast';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
 	import Carousel from '$lib/components/Carousel.svelte';
 	import BlureFade from '$lib/BlureFade.svelte';
 	import Hr from '$lib/components/HR.svelte';
@@ -9,6 +11,7 @@
 	import logo from '$lib/assets/images/Logo.png';
 	import art_second from '$lib/assets/images/art_second.png';
 	import partners from '$lib/assets/images/partners.png';
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 
 	import Cards from '$lib/Cards.svelte';
 	import GridCard from '$lib/GridCard.svelte';
@@ -19,31 +22,9 @@
 	import type { PageProps } from './$types';
 	import Faq from '$lib/components/Faq.svelte';
 	import { page } from '$app/state';
+	import Empty from '$lib/Empty.svelte';
 	let statview = $state(false);
 	let loading = $state(false);
-	let scrollContainer = $state<HTMLElement>();
-
-	function handleWheel(event: WheelEvent) {
-		if (!scrollContainer) return;
-		event.preventDefault();
-
-		const deltaY = event.deltaY;
-		const deltaYSign = Math.sign(deltaY);
-
-		if (deltaYSign === -1) {
-			scrollContainer.scrollBy({
-				top: 0,
-				left: -169,
-				behavior: 'auto'
-			});
-		} else {
-			scrollContainer.scrollBy({
-				top: 0,
-				left: 169,
-				behavior: 'auto'
-			});
-		}
-	}
 
 	let { data, form }: PageProps = $props();
 	$effect(() => {
@@ -188,27 +169,32 @@
 	</div>
 </section>
 
-<section
-	bind:this={scrollContainer}
-	onwheel={handleWheel}
-	id="project"
-	data-lenis-prevent
-	class="hide-scroller my-8 w-full overflow-x-auto p-5 pb-4"
->
-	<div class="flex h-full w-full flex-nowrap gap-4 px-4 sm:px-8">
-		{#each data.art_product as product, i (product.id)}
-			<article class="min-h-[500px]">
-				<Cards {i} {product} />
-			</article>
-		{/each}
-	</div>
+<!--class="hide-scroller my-8 w-full overflow-x-auto p-5 pb-4"-->
+<section id="project">
+	<ScrollArea orientation="horizontal">
+		<div
+			data-lenis-prevent
+			class="flex touch-auto snap-x snap-mandatory flex-nowrap overflow-x-scroll"
+			style="-webkit-overflow-scrolling: touch;"
+		>
+			<Empty items={data.art_products}>
+				{#each data.art_products as product, i (product.id)}
+					<article class="mx-2 min-h-[500px]">
+						<Cards {i} {product} />
+					</article>
+				{/each}
+			</Empty>
+		</div>
+	</ScrollArea>
 </section>
 
-<div class="container mx-auto text-center text-3xl font-semibold tracking-widest text-[#a71580]">
-	{m.mad_alert_porpoise_spin()}
-</div>
+<Empty items={data.art_products}>
+	<div class="container mx-auto text-center text-3xl font-semibold tracking-widest text-[#a71580]">
+		{m.mad_alert_porpoise_spin()}
+	</div>
+</Empty>
 
-<section class="my-20">
+<section id="art" class="my-20">
 	<div class="flex flex-col gap-8 md:h-[20rem] md:flex-row-reverse">
 		<div class="h-48 drop-shadow-2xl md:h-full md:basis-3/5">
 			<img
@@ -231,20 +217,22 @@
 </section>
 
 <!--Project Section-->
-<article class="  my-9 px-4">
+<article id="Project Section" class="  my-9 px-4">
 	<p
 		class=" text-black-50/40 my-8 mr-0 whitespace-pre-line text-pretty p-2 text-xl font-thin leading-loose tracking-tighter drop-shadow-2xl md:text-3xl"
 	>
 		{m.project_section()}
 	</p>
 </article>
-<!--Blog/Old Project  Sectoin -->
+
 <section class="my-10 p-5">
-	<div class="grid grid-cols-1 gap-8 text-center sm:p-3 md:grid-cols-2">
-		{#each data.projects_productsWithImageUrls as project, i (project.id)}
-			<GridCard {i} {project} />
-		{/each}
-	</div>
+	<Empty items={data.projects_productsWithImageUrls}>
+		<div class="grid grid-cols-1 gap-8 text-center sm:p-3 md:grid-cols-2">
+			{#each data.projects_productsWithImageUrls as project, i (project.id)}
+				<GridCard {i} {project} />
+			{/each}
+		</div>
+	</Empty>
 </section>
 
 <!--Partners Secttion-->
@@ -287,7 +275,9 @@
 </section>
 
 <section id="faq" class="my-4">
-	<Faq faq={data.faq} />
+	<Empty items={data.faq}>
+		<Faq faq={data.faq} />
+	</Empty>
 </section>
 
 <!--Contact Section-->
@@ -365,13 +355,16 @@
 				</p>
 
 				<div>
-					<button
+					<Button
 						disabled={loading}
 						type="submit"
 						class="w-full rounded-md bg-blue-400 px-4 py-3 font-bold text-white transition duration-150 ease-in-out hover:bg-[#a71580] focus:outline-none focus:ring-2 focus:ring-[#a71580] focus:ring-offset-2"
 					>
+						{#if loading}
+							<LoaderCircle class="animate-spin" />
+						{/if}
 						{m.jolly_male_warthog_vent()}
-					</button>
+					</Button>
 				</div>
 			</form>
 		</div>
@@ -381,9 +374,5 @@
 <style>
 	.myshadow {
 		text-shadow: 2px 2px #a715805b;
-	}
-	.hide-scroller {
-		scrollbar-width: none;
-		scroll-behavior: smooth;
 	}
 </style>

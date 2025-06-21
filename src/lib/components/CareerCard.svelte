@@ -2,7 +2,7 @@
 	let { children, body } = $props();
 </script>
 
-<div class="  my-4 max-w-md rounded-3xl bg-[#a71580] p-8 text-start md:my-2 lg:p-8">
+<div class=" my-4 max-w-md rounded-3xl bg-[#a71580] p-8 text-start md:my-2 lg:p-8">
 	{@render children()}
 
 	<p

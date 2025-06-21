@@ -1,15 +1,47 @@
 import type { PostModel } from '$lib/interface/post';
-import { fail } from '@sveltejs/kit';
+import { error, fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import { ClientResponseError } from 'pocketbase';
 
-export const load: PageServerLoad = async ({ params, locals }) => {
-	const pb = locals.pb;
+export const load: PageServerLoad = async ({ params, locals, setHeaders }) => {
+    // Set cache headers - these are independent of the data fetching
+    setHeaders({
+        'Cache-Control': `max-age=0, s-maxage=60`,
+    });
 
-	const getPost = async (): Promise<PostModel> => {
-		return await pb.collection('posts').getFirstListItem(`slug="${params.id}"`);
-	};
-	return { getPost: getPost() };
+    const pb = locals.pb;
+
+    try {
+        // Fetch the single post based on the slug from params.id
+        const post: PostModel = await pb
+            .collection('posts')
+            .getFirstListItem(`slug="${params.id}"`);
+
+        // If the post is found, generate its image URL
+        // (Assuming 'image' is a file field in your PostModel)
+        const postWithImageUrl = {
+            ...post,
+            thumbnail: pb.files.getURL(post, post.image)
+        };
+
+        return { post: postWithImageUrl };
+    } catch (e: unknown) { 
+        console.error(`Error fetching post with slug "${params.id}":`, e);
+
+        if (e instanceof ClientResponseError) {
+            if (e.status === 404) {
+                 error(404, 'The requested blog post was not found.');
+            } else if (e.isAbort) {
+                 error(408, 'Request timed out while loading the post.');
+            } else {
+                const errorMessage = e.response?.message || e.message || 'An unexpected API error occurred.';
+                 error(e.status, errorMessage);
+            }
+        } else {
+           
+             error(500, 'Failed to load the post due to an internal server error.');
+        }
+    }
 };
 export const actions: Actions = {
 	/**
