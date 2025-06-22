@@ -225,7 +225,7 @@
 	</p>
 </article>
 
-<section class="my-10 p-5">
+<section id="products" class="my-10 p-5">
 	<Empty items={data.projects_productsWithImageUrls}>
 		<div class="grid grid-cols-1 gap-8 text-center sm:p-3 md:grid-cols-2">
 			{#each data.projects_productsWithImageUrls as project, i (project.id)}
