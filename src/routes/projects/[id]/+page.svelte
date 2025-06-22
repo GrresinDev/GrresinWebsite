@@ -11,6 +11,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import toast from 'svelte-french-toast';
+	import { getReadingTime } from '$lib/utils';
 
 	let { data }: { data: PageData } = $props();
 	let copied = $state(false);
@@ -122,7 +123,9 @@
 								<li
 									class="relative inline-block pe-6 before:absolute before:end-2 before:top-1/2 before:size-1 before:-translate-y-1/2 before:rounded-full before:bg-gray-300 last:pe-0 last-of-type:before:hidden dark:text-neutral-400 dark:before:bg-neutral-600"
 								>
-									8 min read
+									
+									{getReadingTime(getLocale() === 'ar' ? data.project.desc_ar : data.project.desc, false)} min
+									read
 								</li>
 							</ul>
 						</div>
@@ -174,7 +177,7 @@
 						<Carousel.Next class="mx-20 h-8 w-8  text-white" />
 					</Carousel.Root>
 
-					<h1 class="mt-3 text-2xl font-bold">Before And After Images</h1>
+					<h1 class="mt-3 text-2xl font-bold">{m.just_fluffy_sparrow_win()}</h1>
 					<p class="my-8">
 						{getLocale() === 'ar' ? data.project.desc_ar : data.project.desc}
 					</p>
