@@ -91,7 +91,9 @@
 		<div>
 			<div class="mb-6 flex items-center justify-start gap-x-3">
 				<div class="rounded-lg border p-2">
-					<img src={logo} alt="Grresin Logo" class="h-10 w-10 object-cover" />
+					<a href={localizeHref('/')} class="justify-start hover:bg-[#a71580]">
+						<img src={logo} alt="Grresin Logo" class="h-10 w-10 object-cover" /></a
+					>
 				</div>
 				<span class="text-md font-semibold" id="mobile-menu-title">{m.menu()}</span>
 			</div>

@@ -97,7 +97,7 @@
 	</p>
 </section>
 <!--Bento Grid -->
-<section class=" mt-12 flex min-h-svh w-full flex-col px-0 py-20 md:px-4 lg:px-8">
+<section class=" mt-12 flex w-full flex-col px-0 py-20 md:min-h-svh md:px-4 lg:px-8">
 	<article class="h-full w-full px-2 md:p-20">
 		<BlureFade delay={0.2}>
 			<h1 class="  myshadow ml-11 w-fit text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
@@ -150,17 +150,17 @@
 
 		<div class="mx-4 self-center break-words md:mt-40 md:basis-2/5">
 			<div class="container max-w-full p-8">
-				<h1 class="px-2 text-3xl font-semibold md:text-5xl">
+				<h1 class="px-2 text-start text-3xl font-semibold md:text-5xl">
 					{m.art_header()}
 				</h1>
 				<h2
-					class="w-fit text-2xl font-semibold tracking-wide sm:text-3xl md:tracking-tight lg:text-4xl"
+					class="w-fit text-center text-2xl font-semibold tracking-wide sm:text-3xl md:tracking-tight lg:text-4xl"
 				>
 					{m.art_body()}
 					<hr class="mx-2 h-2 w-full rounded-sm border-0 bg-blue-400 md:my-10" />
 				</h2>
 				<p
-					class="text-bold my-6 line-clamp-6 text-pretty text-xl hover:line-clamp-none hover:max-h-[500px] md:my-8 md:text-2xl"
+					class="text-bold my-6 text-pretty text-xl hover:line-clamp-none hover:max-h-[500px] md:my-8 md:line-clamp-6 md:text-2xl"
 				>
 					{m.art_desc()}
 				</p>
