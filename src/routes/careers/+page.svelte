@@ -85,8 +85,7 @@
 		}
 	});
 
-	// We define these promises here so they are only created once
-	// for each component that we want to lazy-load.
+
 	const CareerCardPromise = import('$lib/components/CareerCard.svelte');
 	const CarouselPromise = import('$lib/components/Carousel.svelte');
 </script>
@@ -119,14 +118,14 @@
 
 <section class="">
 	<div class="relative z-10 max-w-full">
-		<LazyLoading>
+		
 			{#await CarouselPromise then M}
 				{@const Carousel = M.default}
 				<Carousel />
 			{:catch error}
 				<p>Failed to load carousel: {error.message}</p>
 			{/await}
-		</LazyLoading>
+		
 	</div>
 </section>
 

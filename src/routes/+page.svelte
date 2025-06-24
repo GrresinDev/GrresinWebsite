@@ -1,4 +1,21 @@
 <script lang="ts">
+	/*
+	photo from drive 
+sales to point of sales
+start page sales point of project and out for arts with some description and then view it all
+add an arts for bento grid 
+products to art and art section adn scroll view 
+projects to projects sectoin 
+parteners: Logo Only
+
+
+
+FAQS: Must Be Aan  ASK and answer form with ai an ?
+"Ask Me ?" 
+
+
+	
+	*/
 	import toast from 'svelte-french-toast';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
@@ -9,7 +26,6 @@
 	import art_second from '$lib/assets/images/art_second.webp?enhanced';
 	import partners from '$lib/assets/images/partners.png';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
-
 	import GridCard from '$lib/GridCard.svelte';
 	import CountUp from '$lib/components/CountUp.svelte';
 	import ContactCarousel from '$lib/ContactCarousel.svelte';
@@ -18,7 +34,6 @@
 	import Faq from '$lib/components/Faq.svelte';
 	import { page } from '$app/state';
 	import Empty from '$lib/Empty.svelte';
-	import LazyLoading from '$lib/LazyLoading.svelte';
 	import { inview } from 'svelte-inview';
 	import Cards from '$lib/Cards.svelte';
 
@@ -35,6 +50,8 @@
 			}
 		}
 	});
+
+	const CarouselPromise = import('$lib/components/Carousel.svelte');
 </script>
 
 <svelte:head>
@@ -59,43 +76,48 @@
 	/>
 </svelte:head>
 
-<section id="Hero" class="relative overflow-hidden px-4 py-3 sm:px-6 lg:px-8">
+<section id="Hero" class="relative overflow-hidden px-4 py-6 sm:px-6 lg:px-8" dir="ltr">
 	<div class="container mx-auto">
-		<div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
-			<div class="order-2 flex h-full flex-col items-start text-start md:order-1">
-				<div class="flex h-full w-full flex-col">
-					<div class="flex w-full justify-center md:justify-start">
-						<img class="mb-0 max-h-[350px] max-w-full" src={logo} alt="Graffiti Resin Logo" />
-					</div>
-
-					<div class=" p-2">
-						<h1 class="myshadow text-4xl font-bold tracking-tight lg:text-6xl">
-							{m.welcome()}<br />
-							{m.welcomeHeader()}
-							<hr class=" mt-3 h-1 w-[80%] bg-[#a71580]" />
-						</h1>
-					</div>
+		<div class="flex flex-col-reverse items-center gap-10 md:grid md:grid-cols-2 md:gap-16">
+			<!-- Logo + Text -->
+			<div class="w-full text-start md:order-1">
+				<div class="flex w-full justify-center md:justify-start">
+					<img
+						class="mb-0 max-h-[300px] w-auto object-contain"
+						src={logo}
+						alt="Graffiti Resin Logo"
+					/>
+				</div>
+				<div class="mt-4 p-2 text-start md:text-start">
+					<h1 class="myshadow text-3xl font-bold tracking-tight sm:text-4xl lg:text-6xl">
+						{m.welcome()}<br />
+						{m.welcomeHeader()}
+						<hr class="mt-3 h-1 w-[80%] bg-[#a71580]" />
+					</h1>
 				</div>
 			</div>
 
-			<div class="order-1">
-				<div class="relative z-10 max-w-full">
-					<LazyLoading>
-						{#await import('$lib/components/Carousel.svelte') then { default: Carousel }}
-							<Carousel />
-						{/await}
-					</LazyLoading>
+			<!-- Carousel -->
+			<div class="flex w-full justify-center md:order-2">
+				<div class="relative z-10 w-full max-w-[400px]">
+					{#await CarouselPromise then M}
+						{@const Carousel = M.default}
+						<Carousel />
+					{:catch error}
+						<p>Failed to load carousel: {error.message}</p>
+					{/await}
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<p
-		style="white-space: pre-line"
-		class="ltr:ml-18 container mx-auto mt-2 hyphens-auto text-wrap text-justify text-xl sm:mr-0 md:text-2xl ltr:w-full rtl:mr-0 rtl:w-full md:rtl:mr-11"
-	>
-		{m.welcomeDesc()}
-	</p>
+		<!-- Description Paragraph -->
+		<p
+			style="white-space: pre-line"
+			class="mx-auto hyphens-auto text-wrap px-2 text-justify text-xl md:text-2xl ltr:ml-0 ltr:text-left rtl:mr-0 rtl:text-right"
+		>
+			{m.welcomeDesc()}
+		</p>
+	</div>
 </section>
 <!--Bento Grid -->
 <section class=" mt-12 flex w-full flex-col px-0 py-20 md:min-h-svh md:px-4 lg:px-8">
@@ -111,68 +133,65 @@
 </section>
 
 <!--Intro-->
-<LazyLoading>
-	<section id="intro" class=" bg-[#a71580] py-20 text-white">
-		<div class="container mx-auto px-4">
-			<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-				{m.service_header()}
-			</h1>
-			<br />
-			<h2
-				class="  w-fit text-ellipsis break-words text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl"
-			>
-				{m.service_body()}
-				<Hr
-					id="small"
-					borderColor="border-gray-500"
-					options={{
-						rootMargin: '-10px',
-						unobserveOnEnter: true
-					}}
-				/>
-			</h2>
 
-			<p class="text-bold my-8 mr-0 text-pretty text-justify text-3xl tracking-tighter">
-				{m.service_desc()}
-			</p>
-		</div>
-	</section>
-</LazyLoading>
+<section id="intro" class=" bg-[#a71580] py-20 text-white">
+	<div class="container mx-auto px-4">
+		<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
+			{m.service_header()}
+		</h1>
+		<br />
+		<h2
+			class="  w-fit text-ellipsis break-words text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl"
+		>
+			{m.service_body()}
+			<Hr
+				id="small"
+				borderColor="border-gray-500"
+				options={{
+					rootMargin: '-10px',
+					unobserveOnEnter: true
+				}}
+			/>
+		</h2>
+
+		<p class="text-bold my-8 mr-0 text-pretty text-justify text-3xl tracking-tighter">
+			{m.service_desc()}
+		</p>
+	</div>
+</section>
 
 <!--Art Section-->
-<LazyLoading>
-	<section id="art" class="my-24 md:h-[25rem]">
-		<div class="flex h-full flex-col gap-8 md:flex-row-reverse">
-			<div class="  md:h-full md:basis-3/5">
-				<enhanced:img
-					class="h-full w-full rounded-r-3xl object-cover shadow-2xl shadow-blue-300 rtl:rounded-r-3xl"
-					src={art}
-					alt="resin Project"
-				/>
-			</div>
 
-			<div class="mx-4 self-center break-words md:mt-40 md:basis-2/5">
-				<div class="container max-w-full p-8">
-					<h1 class="px-2 text-start text-3xl font-semibold md:text-5xl">
-						{m.art_header()}
-					</h1>
-					<h2
-						class="w-fit text-center text-2xl font-semibold tracking-wide sm:text-3xl md:tracking-tight lg:text-4xl"
-					>
-						{m.art_body()}
-						<hr class="mx-2 h-2 w-full rounded-sm border-0 bg-blue-400 md:my-10" />
-					</h2>
-					<p
-						class="text-bold my-6 text-pretty text-xl hover:line-clamp-none hover:max-h-[500px] md:my-8 md:line-clamp-6 md:text-2xl"
-					>
-						{m.art_desc()}
-					</p>
-				</div>
+<section id="art" class="my-24 md:h-[25rem]">
+	<div class="flex h-full flex-col gap-8 md:flex-row-reverse">
+		<div class="  md:h-full md:basis-3/5">
+			<enhanced:img
+				class="h-full w-full rounded-r-3xl object-cover shadow-2xl shadow-blue-300 rtl:rounded-r-3xl"
+				src={art}
+				alt="resin Project"
+			/>
+		</div>
+
+		<div class="mx-4 self-center break-words md:mt-40 md:basis-2/5">
+			<div class="container max-w-full p-8">
+				<h1 class="px-2 text-start text-3xl font-semibold md:text-5xl">
+					{m.art_header()}
+				</h1>
+				<h2
+					class="w-fit text-center text-2xl font-semibold tracking-wide sm:text-3xl md:tracking-tight lg:text-4xl"
+				>
+					{m.art_body()}
+					<hr class="mx-2 h-2 w-full rounded-sm border-0 bg-blue-400 md:my-10" />
+				</h2>
+				<p
+					class="text-bold my-6 text-pretty text-xl hover:line-clamp-none hover:max-h-[500px] md:my-8 md:line-clamp-6 md:text-2xl"
+				>
+					{m.art_desc()}
+				</p>
 			</div>
 		</div>
-	</section>
-</LazyLoading>
-<!--class="hide-scroller my-8 w-full overflow-x-auto p-5 pb-4"-->
+	</div>
+</section>
 
 <section id="project">
 	<ScrollArea orientation="horizontal">
@@ -182,13 +201,11 @@
 			style="-webkit-overflow-scrolling: touch;"
 		>
 			<Empty items={data.art_products}>
-				<LazyLoading>
-					{#each data.art_products as product, i (product.id)}
-						<article class="mx-2 min-h-[500px]">
-							<Cards {i} {product} />
-						</article>
-					{/each}
-				</LazyLoading>
+				{#each data.art_products as product, i (product.id)}
+					<article class="mx-2 min-h-[500px]">
+						<Cards {i} {product} />
+					</article>
+				{/each}
 			</Empty>
 		</div>
 	</ScrollArea>
@@ -234,11 +251,9 @@
 <section id="products" class="my-10 p-5">
 	<Empty items={data.projects_productsWithImageUrls}>
 		<div class="grid grid-cols-1 gap-8 text-center sm:p-3 md:grid-cols-2">
-			<LazyLoading>
-				{#each data.projects_productsWithImageUrls as project, i (project.id)}
-					<GridCard {i} {project} />
-				{/each}
-			</LazyLoading>
+			{#each data.projects_productsWithImageUrls as project, i (project.id)}
+				<GridCard {i} {project} />
+			{/each}
 		</div>
 	</Empty>
 </section>

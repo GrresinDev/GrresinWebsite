@@ -59,15 +59,15 @@
 
 	#img-container {
 		position: relative;
-		height: 300px;
-		width: 300px;
+		height: 400px;
+		width: 400px;
 		perspective: 500px;
 		transform-style: preserve-3d;
 	}
 
 	.box {
-		height: 300px;
-		width: 300px;
+		height: 400px;
+		width: 400px;
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -105,17 +105,14 @@
 		transform: scale3d(0.5, 0.5, 0.5) translate(-50%, -50%) rotateY(10deg) translateZ(-100px);
 	}
 
-	@media (width > 768px) {
-		.soso {
-			flex-direction: row;
-		}
+	@media (max-width: 767px) {
 		#img-container {
-			height: 400px;
-			width: 400px;
+			height: 300px;
+			width: 300px;
 		}
 		.box {
-			height: 400px;
-			width: 400px;
+			height: 300px;
+			width: 300px;
 		}
 	}
 </style>
