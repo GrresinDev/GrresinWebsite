@@ -6,17 +6,41 @@
 	import { page, navigating } from '$app/state';
 	import ScrollProgress from '$lib/ScrollProgress.svelte';
 	import Loader from '$lib/PageLoader.svelte';
-
-	let { children } = $props();
-
+	import { onNavigate } from '$app/navigation';
 	let showLoadingIndicator = $state(false);
+	onNavigate((navigation) => {
+		// If View Transitions are not supported, let SvelteKit handle navigation normally.
+		// The `$navigating` store will still work for the loading indicator.
+		if (!document.startViewTransition) {
+			return; // No special Promise needed for non-VT
+		}
 
-	$effect(() => {
-		showLoadingIndicator = !!navigating.to;
+		// Return a Promise to onNavigate to tell SvelteKit to wait for the View Transition
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				// This callback runs *after* the old view is snapshotted
+				// and *before* SvelteKit starts rendering the new view.
+
+				// Resolve the promise immediately. This tells SvelteKit to
+				// proceed with navigation and render the new page.
+				// The browser has already taken the snapshot of the old page.
+				resolve();
+
+				// Wait for SvelteKit to fully render the new page and load all its data.
+				// During this time, the `$navigating` store will be truthy,
+				// and your loading indicator will be visible.
+				await navigation.complete;
+
+				// At this point, the new page is fully rendered and the
+				// transition should be complete or nearly complete.
+				// The `$navigating` store will become null.
+			});
+		});
 	});
+	let { children } = $props();
 </script>
 
-{#if showLoadingIndicator}
+{#if !!navigating.to}
 	<div class="loading-overlay">
 		<Loader />
 	</div>
