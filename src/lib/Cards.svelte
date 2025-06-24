@@ -11,10 +11,12 @@
 	class="  min-h-[200px] w-[280px] flex-shrink-0 sm:w-[320px] md:w-[320px] lg:w-[350px]"
 >
 	<div class="my-4 flex h-[450px] flex-col rounded-2xl border bg-gray-600/60">
+		<!-- svelte-ignore a11y_consider_explicit_label -->
 		<a href={product.shop} class="block aspect-square overflow-hidden">
 			<img
 				class="h-full w-full rounded-t-2xl object-cover"
 				src={product.thumbnail}
+				loading="lazy"
 				alt="poject products"
 			/>
 		</a>

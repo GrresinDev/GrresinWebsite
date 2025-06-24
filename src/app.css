@@ -9,7 +9,6 @@
 
 * {
 	box-sizing: border-box;
-	transition: all 0.5s cubic-bezier(0.15, 0.85, 0.45, 1);
 }
 body {
 	background-color: #e2e2e2;

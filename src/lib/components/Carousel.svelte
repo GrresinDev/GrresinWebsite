@@ -1,9 +1,9 @@
 <script lang="ts">
-	import first from '$lib/assets/images/resin_gallery.webp';
+	import first from '$lib/assets/images/resin_gallery.webp?enhanced';
 
-	import second from '$lib/assets/images/resin_gallery_second.webp';
+	import second from '$lib/assets/images/resin_gallery_second.webp?enhanced';
 
-	import third from '$lib/assets/images/resin_gallery_third.webp';
+	import third from '$lib/assets/images/resin_gallery_third.webp?enhanced';
 	let imgContainer: HTMLElement;
 
 	function stopImageRotation(intervalId: any) {
@@ -28,13 +28,13 @@
 <section class="soso">
 	<div id="img-container" bind:this={imgContainer}>
 		<div class="box">
-			<img src={first} alt="Resin Gallery" />
+			<enhanced:img loading="lazy" src={first} alt="Resin Gallery" />
 		</div>
 		<div class="box">
-			<img src={second} alt="Resin Gallery" />
+			<enhanced:img src={second} loading="lazy" alt="Resin Gallery" />
 		</div>
 		<div class="box">
-			<img src={third} alt="Resin Gallery" />
+			<enhanced:img src={third} loading="lazy" alt="Resin Gallery" />
 		</div>
 	</div>
 </section>

@@ -6,11 +6,7 @@ import type { ProjectsProductsModel, ProjectsProductsModelWithThumb } from '$lib
 import type { FAQModel } from '$lib/interface/faq';
 import type { ArtProductsModel, ArtProductsModelwithThumb } from '$lib/interface/art';
 
-export const load: PageServerLoad = async ({ locals, setHeaders }) => {
-	setHeaders({
-		'Cache-Control': `max-age=0, s-maxage=${60 * 60}`
-	});
-
+export const load: PageServerLoad = async ({ locals }) => {
 	const pb = locals.pb;
 
 	try {

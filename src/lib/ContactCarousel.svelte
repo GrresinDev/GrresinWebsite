@@ -2,6 +2,7 @@
 	import  contact  from '$lib/assets/images/contact.jpg';
 	import  second  from '$lib/assets/images/contact_second.jpg';
 	let currentIndex = $state(0);
+
 	const images = [
 		contact,
 		second,

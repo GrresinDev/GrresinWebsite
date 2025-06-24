@@ -12,18 +12,16 @@
 		FileBadge2,
 		File
 	} from '@lucide/svelte';
-	import { fly, scale } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
-	import bento from '$lib/assets/images/shop.jpg';
-	import partner from '$lib/assets/images/partner.jpg';
-	import projects from '$lib/assets/images/projects.jpg';
+	import bento from '$lib/assets/images/shop.webp';
+	import partner from '$lib/assets/images/partners.png';
+	import projects from '$lib/assets/images/projects.webp';
 
-	import aboutus from '$lib/assets/images/aboutus.png';
-	import sales from '$lib/assets/images/sales.png';
-	import products from '$lib/assets/images/products.jpg';
-	import flooring from '$lib/assets/images/flooring.png';
+	import aboutus from '$lib/assets/images/aboutus.webp';
+	import sales from '$lib/assets/images/sales.webp';
+	import products from '$lib/assets/images/products.webp';
+	import flooring from '$lib/assets/images/flooring.webp';
 	import blogs from '$lib/assets/images/blogs.jpg';
-	import creating from '$lib/assets/images/creating.jpg';
+	import creating from '$lib/assets/images/creating.webp';
 	import MobileBentoGrid from './MobileBentoGrid.svelte';
 	import { localizeHref } from '$lib/paraglide/runtime';
 
@@ -147,7 +145,6 @@
 			{@const Icon = item.icon}
 			{#if item.id === '7'}
 				<a
-					in:fly|global={{ y: 50, x: 200, duration: index * 350, delay: 100, easing: cubicOut }}
 					href={item.href}
 					class={` relative ${item.colSpan} ${item.rowSpan} flex flex-col items-center justify-center overflow-hidden rounded-2xl  ${item.className || ''} transition-all duration-300 ease-in hover:z-10 hover:scale-110 `}
 					style={item.backgroundImage
@@ -158,17 +155,13 @@
 					{#if item.backgroundImage}
 						<div class="ahmad absolute inset-0 backdrop-blur-[2px]"></div>
 					{/if}
-					<div
-						class="relative z-10 flex flex-col items-center justify-center p-4 text-white"
-						in:scale|global={{ duration: index * 250, delay: 400, easing: cubicOut }}
-					>
+					<div class="relative z-10 flex flex-col items-center justify-center p-4 text-white">
 						<Icon class="mb-2 h-8 w-8" />
 						<span class="text-[2rem] drop-shadow-2xl">{item.title}</span>
 					</div>
 				</a>
 			{:else}
 				<a
-					in:fly|global={{ y: 50, x: 200, duration: index * 350, delay: 100, easing: cubicOut }}
 					href={item.href}
 					class={` relative ${item.colSpan} ${item.rowSpan} flex flex-col items-center justify-center overflow-hidden rounded-2xl  ${item.className || ''} transition-all duration-300 ease-in hover:z-10 hover:scale-110 `}
 					style={item.backgroundImage
@@ -178,10 +171,7 @@
 					{#if item.backgroundImage}
 						<div class="ahmad absolute inset-0 backdrop-blur-[2px]"></div>
 					{/if}
-					<div
-						class="relative z-10 flex flex-col items-center justify-center p-4 text-white"
-						in:scale|global={{ duration: index * 250, delay: 400, easing: cubicOut }}
-					>
+					<div class="relative z-10 flex flex-col items-center justify-center p-4 text-white">
 						<Icon class="mb-2 h-8 w-8" />
 						<span class="text-[2rem] drop-shadow-2xl">{item.title}</span>
 					</div>

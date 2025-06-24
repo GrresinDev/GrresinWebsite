@@ -2,27 +2,26 @@
 	import toast from 'svelte-french-toast';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
-	import Carousel from '$lib/components/Carousel.svelte';
-	import BlureFade from '$lib/BlureFade.svelte';
 	import Hr from '$lib/components/HR.svelte';
-	import BentoGrid from '$lib/components/layout/Grid/BentoGrid.svelte';
 	import { m } from '$lib/paraglide/messages';
-	import art from '$lib/assets/images/art.webp';
+	import art from '$lib/assets/images/art.webp?enhanced';
 	import logo from '$lib/assets/images/Logo.png';
-	import art_second from '$lib/assets/images/art_second.png';
+	import art_second from '$lib/assets/images/art_second.webp?enhanced';
 	import partners from '$lib/assets/images/partners.png';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 
-	import Cards from '$lib/Cards.svelte';
 	import GridCard from '$lib/GridCard.svelte';
 	import CountUp from '$lib/components/CountUp.svelte';
-	import { inview } from 'svelte-inview';
 	import ContactCarousel from '$lib/ContactCarousel.svelte';
 	import { enhance } from '$app/forms';
 	import type { PageProps } from './$types';
 	import Faq from '$lib/components/Faq.svelte';
 	import { page } from '$app/state';
 	import Empty from '$lib/Empty.svelte';
+	import LazyLoading from '$lib/LazyLoading.svelte';
+	import { inview } from 'svelte-inview';
+	import Cards from '$lib/Cards.svelte';
+
 	let statview = $state(false);
 	let loading = $state(false);
 
@@ -70,20 +69,22 @@
 					</div>
 
 					<div class=" p-2">
-						<BlureFade>
-							<h1 class="myshadow text-4xl font-bold tracking-tight lg:text-6xl">
-								{m.welcome()}<br />
-								{m.welcomeHeader()}
-								<hr class=" mt-3 h-1 w-[80%] bg-[#a71580]" />
-							</h1>
-						</BlureFade>
+						<h1 class="myshadow text-4xl font-bold tracking-tight lg:text-6xl">
+							{m.welcome()}<br />
+							{m.welcomeHeader()}
+							<hr class=" mt-3 h-1 w-[80%] bg-[#a71580]" />
+						</h1>
 					</div>
 				</div>
 			</div>
 
 			<div class="order-1">
 				<div class="relative z-10 max-w-full">
-					<Carousel />
+					<LazyLoading>
+						{#await import('$lib/components/Carousel.svelte') then { default: Carousel }}
+							<Carousel />
+						{/await}
+					</LazyLoading>
 				</div>
 			</div>
 		</div>
@@ -99,77 +100,80 @@
 <!--Bento Grid -->
 <section class=" mt-12 flex w-full flex-col px-0 py-20 md:min-h-svh md:px-4 lg:px-8">
 	<article class="h-full w-full px-2 md:p-20">
-		<BlureFade delay={0.2}>
-			<h1 class="  myshadow ml-11 w-fit text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-				{m.department()}<br />
-				<hr class=" my-2 h-1 w-full bg-[#a71580]" />
-			</h1>
-		</BlureFade>
-		<BentoGrid />
+		<h1 class="  myshadow ml-11 w-fit text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+			{m.department()}<br />
+			<hr class=" my-2 h-1 w-full bg-[#a71580]" />
+		</h1>
+		{#await import('$lib/components/layout/Grid/BentoGrid.svelte') then { default: BentoGrid }}
+			<BentoGrid />
+		{/await}
 	</article>
 </section>
 
 <!--Intro-->
-<section id="intro" class=" bg-[#a71580] py-20 text-white">
-	<div class="container mx-auto px-4">
-		<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-			{m.service_header()}
-		</h1>
-		<br />
-		<h2
-			class="  w-fit text-ellipsis break-words text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl"
-		>
-			{m.service_body()}
-			<Hr
-				id="small"
-				borderColor="border-gray-500"
-				options={{
-					rootMargin: '-10px',
-					unobserveOnEnter: true
-				}}
-			/>
-		</h2>
-		<BlureFade>
+<LazyLoading>
+	<section id="intro" class=" bg-[#a71580] py-20 text-white">
+		<div class="container mx-auto px-4">
+			<h1 class="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
+				{m.service_header()}
+			</h1>
+			<br />
+			<h2
+				class="  w-fit text-ellipsis break-words text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl"
+			>
+				{m.service_body()}
+				<Hr
+					id="small"
+					borderColor="border-gray-500"
+					options={{
+						rootMargin: '-10px',
+						unobserveOnEnter: true
+					}}
+				/>
+			</h2>
+
 			<p class="text-bold my-8 mr-0 text-pretty text-justify text-3xl tracking-tighter">
 				{m.service_desc()}
 			</p>
-		</BlureFade>
-	</div>
-</section>
+		</div>
+	</section>
+</LazyLoading>
 
 <!--Art Section-->
-<section id="art" class="my-24 md:h-[25rem]">
-	<div class="flex h-full flex-col gap-8 md:flex-row-reverse">
-		<div class="  md:h-full md:basis-3/5">
-			<img
-				class="h-full w-full rounded-r-3xl object-cover shadow-2xl shadow-blue-300 rtl:rounded-r-3xl"
-				src={art}
-				alt="resin Project"
-			/>
-		</div>
+<LazyLoading>
+	<section id="art" class="my-24 md:h-[25rem]">
+		<div class="flex h-full flex-col gap-8 md:flex-row-reverse">
+			<div class="  md:h-full md:basis-3/5">
+				<enhanced:img
+					class="h-full w-full rounded-r-3xl object-cover shadow-2xl shadow-blue-300 rtl:rounded-r-3xl"
+					src={art}
+					alt="resin Project"
+				/>
+			</div>
 
-		<div class="mx-4 self-center break-words md:mt-40 md:basis-2/5">
-			<div class="container max-w-full p-8">
-				<h1 class="px-2 text-start text-3xl font-semibold md:text-5xl">
-					{m.art_header()}
-				</h1>
-				<h2
-					class="w-fit text-center text-2xl font-semibold tracking-wide sm:text-3xl md:tracking-tight lg:text-4xl"
-				>
-					{m.art_body()}
-					<hr class="mx-2 h-2 w-full rounded-sm border-0 bg-blue-400 md:my-10" />
-				</h2>
-				<p
-					class="text-bold my-6 text-pretty text-xl hover:line-clamp-none hover:max-h-[500px] md:my-8 md:line-clamp-6 md:text-2xl"
-				>
-					{m.art_desc()}
-				</p>
+			<div class="mx-4 self-center break-words md:mt-40 md:basis-2/5">
+				<div class="container max-w-full p-8">
+					<h1 class="px-2 text-start text-3xl font-semibold md:text-5xl">
+						{m.art_header()}
+					</h1>
+					<h2
+						class="w-fit text-center text-2xl font-semibold tracking-wide sm:text-3xl md:tracking-tight lg:text-4xl"
+					>
+						{m.art_body()}
+						<hr class="mx-2 h-2 w-full rounded-sm border-0 bg-blue-400 md:my-10" />
+					</h2>
+					<p
+						class="text-bold my-6 text-pretty text-xl hover:line-clamp-none hover:max-h-[500px] md:my-8 md:line-clamp-6 md:text-2xl"
+					>
+						{m.art_desc()}
+					</p>
+				</div>
 			</div>
 		</div>
-	</div>
-</section>
-
+	</section>
+</LazyLoading>
 <!--class="hide-scroller my-8 w-full overflow-x-auto p-5 pb-4"-->
+
 <section id="project">
 	<ScrollArea orientation="horizontal">
 		<div
@@ -178,11 +182,13 @@
 			style="-webkit-overflow-scrolling: touch;"
 		>
 			<Empty items={data.art_products}>
-				{#each data.art_products as product, i (product.id)}
-					<article class="mx-2 min-h-[500px]">
-						<Cards {i} {product} />
-					</article>
-				{/each}
+				<LazyLoading>
+					{#each data.art_products as product, i (product.id)}
+						<article class="mx-2 min-h-[500px]">
+							<Cards {i} {product} />
+						</article>
+					{/each}
+				</LazyLoading>
 			</Empty>
 		</div>
 	</ScrollArea>
@@ -197,7 +203,7 @@
 <section id="art" class="my-20">
 	<div class="flex flex-col gap-8 md:h-[20rem] md:flex-row-reverse">
 		<div class="h-48 drop-shadow-2xl md:h-full md:basis-3/5">
-			<img
+			<enhanced:img
 				class="h-full w-full rounded-l-md object-cover drop-shadow-2xl"
 				src={art_second}
 				alt="resin Project"
@@ -205,7 +211,7 @@
 		</div>
 		<div class="container mx-auto self-center md:basis-2/5">
 			<!-- Removed self-center on mobile -->
-			<p class=" whitespace-pre-line text-4xl font-bold md:text-6xl">
+			<p class=" text-4xl font-bold md:text-5xl">
 				<!-- Responsive text size -->
 				{m.project_header()}<br />
 				{m.project_body()}
@@ -228,34 +234,34 @@
 <section id="products" class="my-10 p-5">
 	<Empty items={data.projects_productsWithImageUrls}>
 		<div class="grid grid-cols-1 gap-8 text-center sm:p-3 md:grid-cols-2">
-			{#each data.projects_productsWithImageUrls as project, i (project.id)}
-				<GridCard {i} {project} />
-			{/each}
+			<LazyLoading>
+				{#each data.projects_productsWithImageUrls as project, i (project.id)}
+					<GridCard {i} {project} />
+				{/each}
+			</LazyLoading>
 		</div>
 	</Empty>
 </section>
 
 <!--Partners Secttion-->
 <section id="partner">
-	<BlureFade delay={0.2}>
-		<h1 class="  myshadow w-fit px-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-			{m.partner()}<br />
-			<span class=" ms-9 text-left">
-				Graffiti Resin
-				<hr class="mr-14 h-2 w-full rounded-sm border-0 bg-blue-400 md:my-10" />
-			</span>
-		</h1>
+	<h1 class="  myshadow w-fit px-3 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+		{m.partner()}<br />
+		<span class=" ms-9 text-left">
+			Graffiti Resin
+			<hr class="mr-14 h-2 w-full rounded-sm border-0 bg-blue-400 md:my-10" />
+		</span>
+	</h1>
 
-		<figure class="container mx-auto my-6">
-			<img src={partners} alt="our Parnters" loading="lazy" />
-		</figure>
-	</BlureFade>
+	<figure class="container mx-auto my-6">
+		<img src={partners} alt="our Parnters" loading="lazy" />
+	</figure>
 </section>
 
 <!--Statics Section-->
 <section
 	id="statics"
-	use:inview={{ rootMargin: '-50px', unobserveOnEnter: false }}
+	use:inview={{ rootMargin: '-50px', unobserveOnEnter: true }}
 	oninview_change={(event) => {
 		const { inView } = event.detail;
 		statview = inView;
@@ -281,7 +287,7 @@
 </section>
 
 <!--Contact Section-->
-<section id="contact" class="my-4">
+<section class="my-4">
 	<div class=" flex-row-reverse overflow-hidden rounded-lg shadow-xl lg:flex">
 		<div class="flex w-full items-center justify-start p-8 lg:w-1/2 ltr:pr-0 rtl:pl-0">
 			<ContactCarousel />
@@ -356,6 +362,7 @@
 
 				<div>
 					<Button
+						id="contact"
 						disabled={loading}
 						type="submit"
 						class="w-full rounded-md bg-blue-400 px-4 py-3 font-bold text-white transition duration-150 ease-in-out hover:bg-[#a71580] focus:outline-none focus:ring-2 focus:ring-[#a71580] focus:ring-offset-2"
