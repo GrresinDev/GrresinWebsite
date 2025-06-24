@@ -40,26 +40,50 @@
 	<div class="grid h-full w-full grid-cols-5 grid-rows-5 gap-4 p-2">
 		{#each gridItems as item, index (item.id)}
 			{@const Icon = item.icon}
-			<a
-				in:fly|global={{ y: 50, x: 200, duration: index * 350, delay: 100, easing: cubicOut }}
-				href={item.href}
-				class={`relative ${item.colSpan} ${item.rowSpan} flex flex-col items-center justify-center overflow-hidden rounded-3xl shadow-md  transition-transform ease-in-out hover:scale-110 `}
-				style={item.backgroundImage
-					? `background-image: ${item.backgroundImage}; background-size: cover; background-position: center;`
-					: ''}
-			>
-				{#if item.backgroundImage}
-					<div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
-				{/if}
-				<div
-					class="relative z-10 flex flex-col items-center justify-center p-4 text-white"
-					transition:scale|global={{ duration: index * 250, delay: 400, easing: cubicOut }}
+			{#if item.id === '7'}
+				<a
+					in:fly|global={{ y: 50, x: 200, duration: index * 350, delay: 100, easing: cubicOut }}
+					href={item.href}
+					download
+					class={`relative ${item.colSpan} ${item.rowSpan} flex flex-col items-center justify-center overflow-hidden rounded-3xl shadow-md  transition-transform ease-in-out hover:scale-110 `}
+					style={item.backgroundImage
+						? `background-image: ${item.backgroundImage}; background-size: cover; background-position: center;`
+						: ''}
 				>
-					<Icon class="m-2 h-4 w-4" />
+					{#if item.backgroundImage}
+						<div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+					{/if}
+					<div
+						class="relative z-10 flex flex-col items-center justify-center p-4 text-white"
+						transition:scale|global={{ duration: index * 250, delay: 400, easing: cubicOut }}
+					>
+						<Icon class="m-2 h-4 w-4" />
 
-					<span class="text-xs font-semibold">{item.title}</span>
-				</div>
-			</a>
+						<span class="text-xs font-semibold">{item.title}</span>
+					</div>
+				</a>
+			{:else}
+				<a
+					in:fly|global={{ y: 50, x: 200, duration: index * 350, delay: 100, easing: cubicOut }}
+					href={item.href}
+					class={`relative ${item.colSpan} ${item.rowSpan} flex flex-col items-center justify-center overflow-hidden rounded-3xl shadow-md  transition-transform ease-in-out hover:scale-110 `}
+					style={item.backgroundImage
+						? `background-image: ${item.backgroundImage}; background-size: cover; background-position: center;`
+						: ''}
+				>
+					{#if item.backgroundImage}
+						<div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+					{/if}
+					<div
+						class="relative z-10 flex flex-col items-center justify-center p-4 text-white"
+						transition:scale|global={{ duration: index * 250, delay: 400, easing: cubicOut }}
+					>
+						<Icon class="m-2 h-4 w-4" />
+
+						<span class="text-xs font-semibold">{item.title}</span>
+					</div>
+				</a>
+			{/if}
 		{/each}
 	</div>
 </div>

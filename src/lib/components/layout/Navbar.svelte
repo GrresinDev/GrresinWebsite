@@ -5,6 +5,7 @@
 	import { setLocale, getLocale, localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages';
 	import logo from '$lib/assets/images/Logo.png';
+	import { goto } from '$app/navigation';
 
 	let open = $state(false);
 	let locle = $state(getLocale());
@@ -91,8 +92,14 @@
 		<div>
 			<div class="mb-6 flex items-center justify-start gap-x-3">
 				<div class="rounded-lg border p-2">
-					<a href={localizeHref('/')} class="justify-start hover:bg-[#a71580]">
-						<img src={logo} alt="Grresin Logo" class="h-10 w-10 object-cover" /></a
+					<button
+						onclick={() => {
+							goto(localizeHref('/'));
+							open = false;
+						}}
+						class="justify-start"
+					>
+						<img src={logo} alt="Grresin Logo" class="h-10 w-10 object-cover" /></button
 					>
 				</div>
 				<span class="text-md font-semibold" id="mobile-menu-title">{m.menu()}</span>
@@ -133,3 +140,9 @@
 		</div>
 	</Sheet.Content>
 </Sheet.Root>
+
+<style>
+	header {
+		view-transition-name: header;
+	}
+</style>

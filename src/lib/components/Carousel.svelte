@@ -1,9 +1,14 @@
 <script lang="ts">
-	import first from '$lib/assets/images/resin_gallery.webp?enhanced';
+	import first from '$lib/assets/images/choosen/first.jpg?enhanced';
 
-	import second from '$lib/assets/images/resin_gallery_second.webp?enhanced';
+	import second from '$lib/assets/images/choosen/second.jpg?enhanced';
 
-	import third from '$lib/assets/images/resin_gallery_third.webp?enhanced';
+	import third from '$lib/assets/images/choosen/last.png?enhanced';
+	const images = [
+		{ id: 1, src: first, alt: 'Hero Image' },
+		{ id: 2, src: second, alt: 'Hero Image' },
+		{ id: 3, src: third, alt: 'Hero Image' }
+	];
 	let imgContainer: HTMLElement;
 
 	function stopImageRotation(intervalId: any) {
@@ -54,15 +59,15 @@
 
 	#img-container {
 		position: relative;
-		height: 180px;
-		width: 180px;
+		height: 300px;
+		width: 300px;
 		perspective: 500px;
 		transform-style: preserve-3d;
 	}
 
 	.box {
-		height: 180px;
-		width: 180px;
+		height: 300px;
+		width: 300px;
 		position: absolute;
 		top: 50%;
 		left: 50%;

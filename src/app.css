@@ -57,3 +57,23 @@ body {
 	width: 10px; /* Remove scrollbar space */
 	height: auto;
 }
+
+:root::view-transition-old(root) {
+	animation:
+		90ms cubic-bezier(0.15, 0.85, 0.45, 1) both fade-out,
+		300ms cubic-bezier(0.15, 0.85, 0.45, 1) both slide-to-left;
+}
+
+:root::view-transition-new(root) {
+	animation:
+		210ms cubic-bezier(0.15, 0.85, 0.45, 1) 90ms both fade-in,
+		300ms cubic-bezier(0.15, 0.85, 0.45, 1) both slide-from-right;
+}
+
+@media (prefers-reduced-motion) {
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
+}

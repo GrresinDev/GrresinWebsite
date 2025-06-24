@@ -13,7 +13,7 @@
 		File
 	} from '@lucide/svelte';
 	import bento from '$lib/assets/images/shop.webp';
-	import partner from '$lib/assets/images/partners.png';
+	import partner from '$lib/assets/images/partner.webp';
 	import projects from '$lib/assets/images/projects.webp';
 
 	import aboutus from '$lib/assets/images/aboutus.webp';
@@ -81,7 +81,7 @@
 		},
 		{
 			id: '5',
-			title: m.sales(),
+			title: m.warm_fun_panther_honor(),
 			icon: ChartSpline,
 			href: localizeHref('/sales'),
 
@@ -141,7 +141,7 @@
 <!-- Desktop & Tablet View -->
 <div class="hidden h-full w-full items-center justify-center md:flex">
 	<div class="grid h-full w-full grid-cols-5 grid-rows-3 gap-4 p-2">
-		{#each items as item, index (item.id)}
+		{#each items as item (item.id)}
 			{@const Icon = item.icon}
 			{#if item.id === '7'}
 				<a
