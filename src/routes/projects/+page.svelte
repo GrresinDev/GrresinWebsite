@@ -3,14 +3,13 @@
 	import { GlassWater, FlaskConical, Droplet, BrickWall, Home } from '@lucide/svelte';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import { getLocale, localizeHref } from '$lib/paraglide/runtime';
 	import type { PageData } from './$types'; // Correct type for page data
 	import ProjectCard from '$lib/ProjectCard.svelte';
 	import { m } from '$lib/paraglide/messages';
 	import { fade } from 'svelte/transition';
 	import Loader from '$lib/Loader.svelte';
 
-	
 	let { data }: { data: PageData } = $props();
 
 	let activeTabId = $state(
@@ -18,10 +17,7 @@
 			data.projectTypes[0]?.id
 	);
 
-
-
 	$effect(() => {
-		
 		const initialTab = data.projectTypes.find((pt: ProjecctTypeModel) => pt.types === 'all')?.id;
 		if (initialTab) {
 			activeTabId = initialTab;
@@ -108,7 +104,7 @@
 
 <section id="all" class="w-full py-16 md:py-24">
 	<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-		<Tabs.Root value={activeTabId} onValueChange={onTabChange}  class="mb-8">
+		<Tabs.Root value={activeTabId} onValueChange={onTabChange} class="mb-8">
 			<Tabs.List
 				class=" grid h-auto w-full grid-cols-2 gap-2 rounded-lg bg-card p-2 sm:grid-cols-4"
 			>
@@ -119,7 +115,7 @@
 						class="relative flex-1 px-2 py-2.5 text-sm font-bold uppercase transition-colors data-[state=active]:bg-[#a71580] data-[state=active]:text-primary-foreground data-[state=active]:shadow-md sm:text-base"
 					>
 						<Icon class="mr-2 hidden h-5 w-5 sm:inline-block" />
-						{projectTypeConfig.types}
+						{getLocale() === 'ar' ? projectTypeConfig.types_ar : projectTypeConfig.types}
 					</Tabs.Trigger>
 				{/each}
 			</Tabs.List>

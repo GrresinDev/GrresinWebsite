@@ -9,15 +9,21 @@
 
 	import { fade } from 'svelte/transition';
 	import { onNavigate } from '$app/navigation';
-
 	import { page, navigating } from '$app/state';
+
 	let loadingNavigatoion = $state(false);
+	let timer: NodeJS.Timeout | null = null;
 
 	onNavigate((navigation) => {
+		if (timer) {
+			clearTimeout(timer);
+		}
 		if (!document.startViewTransition) {
 			loadingNavigatoion = true;
-			navigating.complete?.then(() => {
-				loadingNavigatoion = false;
+			navigation.complete?.then(() => {
+				timer = setTimeout(() => {
+					loadingNavigatoion = false;
+				}, 500);
 			});
 			return;
 		}
@@ -28,9 +34,18 @@
 				resolve();
 
 				await navigation.complete;
-				loadingNavigatoion = false;
+				timer = setTimeout(() => {
+					loadingNavigatoion = false;
+				}, 500);
 			});
 		});
+	});
+	$effect(() => {
+		return () => {
+			if (timer) {
+				clearTimeout(timer);
+			}
+		};
 	});
 	let { children } = $props();
 </script>

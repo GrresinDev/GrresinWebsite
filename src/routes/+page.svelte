@@ -89,10 +89,12 @@ FAQS: Must Be Aan  ASK and answer form with ai an ?
 					/>
 				</div>
 				<div class="mt-4 p-2 text-start md:text-start">
-					<h1 class="myshadow text-3xl font-bold tracking-tight sm:text-4xl lg:text-6xl">
+					<h1
+						class="myshadow mb-4 py-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-6xl rtl:text-right"
+					>
 						{m.welcome()}<br />
 						{m.welcomeHeader()}
-						<hr class="mt-3 h-1 w-[80%] bg-[#a71580]" />
+						<hr class="mt-4 h-2 w-[100%] bg-[#a71580] rtl:mt-4" />
 					</h1>
 				</div>
 			</div>

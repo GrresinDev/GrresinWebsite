@@ -151,9 +151,10 @@
 						? `background-image: ${item.backgroundImage}; background-size: cover; background-position: ${item.backgroundPosition};`
 						: ''}
 					download
+					data-sveltekit-noscroll
 				>
 					{#if item.backgroundImage}
-						<div class="ahmad absolute inset-0 backdrop-blur-[2px]"></div>
+						<div class="ahmad absolute inset-0 text-center backdrop-blur-[2px]"></div>
 					{/if}
 					<div class="relative z-10 flex flex-col items-center justify-center p-4 text-white">
 						<Icon class="mb-2 h-8 w-8" />
@@ -162,6 +163,7 @@
 				</a>
 			{:else}
 				<a
+					data-sveltekit-noscroll
 					href={item.href}
 					class={` relative ${item.colSpan} ${item.rowSpan} flex flex-col items-center justify-center overflow-hidden rounded-2xl  ${item.className || ''} transition-all duration-300 ease-in hover:z-10 hover:scale-110 `}
 					style={item.backgroundImage
