@@ -1,6 +1,5 @@
 <script lang="ts">
-	/*
-	photo from drive 
+	/* 
 sales to point of sales
 start page sales point of project and out for arts with some description and then view it all
 add an arts for bento grid 
@@ -36,6 +35,7 @@ FAQS: Must Be Aan  ASK and answer form with ai an ?
 	import Empty from '$lib/Empty.svelte';
 	import { inview } from 'svelte-inview';
 	import Cards from '$lib/Cards.svelte';
+	import Clients from '$lib/components/Clients.svelte';
 
 	let statview = $state(false);
 	let loading = $state(false);
@@ -195,7 +195,7 @@ FAQS: Must Be Aan  ASK and answer form with ai an ?
 	</div>
 </section>
 
-<section id="project">
+<section id="art_products">
 	<ScrollArea orientation="horizontal">
 		<div
 			data-lenis-prevent
@@ -250,7 +250,7 @@ FAQS: Must Be Aan  ASK and answer form with ai an ?
 	</p>
 </article>
 
-<section id="products" class="my-10 p-5">
+<section id="project_products" class="my-10 p-5">
 	<Empty items={data.projects_productsWithImageUrls}>
 		<div class="grid grid-cols-1 gap-8 text-center sm:p-3 md:grid-cols-2">
 			{#each data.projects_productsWithImageUrls as project, i (project.id)}
@@ -270,9 +270,7 @@ FAQS: Must Be Aan  ASK and answer form with ai an ?
 		</span>
 	</h1>
 
-	<figure class="container mx-auto my-6">
-		<img src={partners} alt="our Parnters" loading="lazy" />
-	</figure>
+	<Clients partner={data.partenerWithThumb}/>
 </section>
 
 <!--Statics Section-->

@@ -5,19 +5,22 @@ import { contactUsSchema } from '$lib/schemas/contact';
 import type { ProjectsProductsModel, ProjectsProductsModelWithThumb } from '$lib/interface/project';
 import type { FAQModel } from '$lib/interface/faq';
 import type { ArtProductsModel, ArtProductsModelwithThumb } from '$lib/interface/art';
+import type { PartnerModel, PartnerModelWithThumbNail } from '$lib/interface/partner';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const pb = locals.pb;
 
 	try {
-		const [art_products, faq, projects_products]: [
+		const [art_products, faq, projects_products, partners]: [
 			ArtProductsModel[],
 			FAQModel[],
-			ProjectsProductsModel[]
+			ProjectsProductsModel[],
+			PartnerModel[]
 		] = await Promise.all([
 			pb.collection('art_products').getFullList<ArtProductsModel>(),
 			pb.collection('faq').getFullList<FAQModel>(),
-			pb.collection('projects_products').getFullList<ProjectsProductsModel>()
+			pb.collection('projects_products').getFullList<ProjectsProductsModel>(),
+			pb.collection('partners').getFullList()
 		]);
 
 		const projects_productsWithImageUrls: ProjectsProductsModelWithThumb[] = projects_products.map(
@@ -29,12 +32,21 @@ export const load: PageServerLoad = async ({ locals }) => {
 			})
 		);
 
+		const partenerWithThumb: PartnerModelWithThumbNail[] = partners.map((partner) => ({
+			...partner,
+			thumbnail: pb.files.getURL(partner, partner.logo)
+		}));
 		const art_products_WithImageUrls: ArtProductsModelwithThumb[] = art_products.map((post) => ({
 			...post,
 			thumbnail: pb.files.getURL(post, post.image)
 		}));
 
-		return { faq, projects_productsWithImageUrls, art_products: art_products_WithImageUrls };
+		return {
+			faq,
+			projects_productsWithImageUrls,
+			art_products: art_products_WithImageUrls,
+			partenerWithThumb
+		};
 	} catch (e: unknown) {
 		console.error('Error fetching or processing data in load function:', e);
 

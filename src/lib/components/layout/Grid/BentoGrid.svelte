@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { m } from '$lib/paraglide/messages';
-	import { type Icon as IconType } from '@lucide/svelte';
+	import { TrendingUp, type Icon as IconType } from '@lucide/svelte';
 	import {
 		ShoppingCart,
 		ClipboardList,
@@ -20,6 +20,7 @@
 	import sales from '$lib/assets/images/sales.webp';
 	import products from '$lib/assets/images/products.webp';
 	import flooring from '$lib/assets/images/flooring.webp';
+	import third from '$lib/assets/images/choosen/third.jpg';
 	import blogs from '$lib/assets/images/blogs.jpg';
 	import creating from '$lib/assets/images/creating.webp';
 	import MobileBentoGrid from './MobileBentoGrid.svelte';
@@ -36,7 +37,7 @@
 		className?: string;
 		backgroundPosition: string;
 	}
-	let items: GridItem[] = [
+	/*let items: GridItem[] = [
 		{
 			id: '1',
 			title: m.shop(),
@@ -84,7 +85,6 @@
 			title: m.warm_fun_panther_honor(),
 			icon: ChartSpline,
 			href: localizeHref('/sales'),
-
 			colSpan: 'col-span-2',
 			rowSpan: 'row-span-1',
 			backgroundImage: `url(${sales})`,
@@ -133,6 +133,110 @@
 			rowSpan: 'row-span-1',
 			backgroundImage: `url(${creating})`,
 
+			backgroundPosition: 'center'
+		}
+	];*/
+	let items: GridItem[] = [
+		{
+			id: '1',
+			title: m.shop(),
+			icon: ShoppingCart,
+			href: 'https://shop.grresin.com/',
+			colSpan: 'col-span-1',
+			rowSpan: 'row-span-3',
+			backgroundImage: `url(${bento})`,
+			backgroundPosition: 'center'
+		},
+		{
+			id: '2',
+			title: m.partner(),
+			icon: Users,
+			href: localizeHref('#partner'),
+			colSpan: 'col-span-1',
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${partner})`,
+			backgroundPosition: 'center'
+		},
+		{
+			id: '3',
+			title: m.projects(),
+			icon: ClipboardList,
+			href: localizeHref('/projects'),
+			colSpan: 'col-span-1',
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${projects})`,
+			backgroundPosition: 'center'
+		},
+		{
+			id: '4',
+			title: m.about(),
+			icon: Info,
+			href: localizeHref('/about'),
+			colSpan: 'col-span-2',
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${aboutus})`,
+			backgroundPosition: 'top'
+		},
+		{
+			// This is the modified item 5
+			id: '5',
+			title: m.warm_fun_panther_honor(), // You might want to adjust this title as it's now one of two.
+			icon: ChartSpline,
+			href: localizeHref('/sales'),
+			colSpan: 'col-span-1', // Changed from 'col-span-2' to 'col-span-1'
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${sales})`,
+			backgroundPosition: 'center'
+		},
+		{
+			// This is the new item derived from the original item 5
+			id: '10', // New unique ID
+			title: m.seemly_tangy_lynx_smile(), // A new title for the second cell, or reuse if appropriate
+			icon: TrendingUp, // A different icon might be suitable
+			href: localizeHref('#art_products'), // A different href if it leads somewhere else
+			colSpan: 'col-span-1',
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${third})`, // You might want a different background image
+			backgroundPosition: 'center'
+		},
+		{
+			id: '6',
+			title: m.products(),
+			icon: Tag,
+			href: localizeHref('#project_products'),
+			colSpan: 'col-span-1',
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${products})`,
+			backgroundPosition: 'center'
+		},
+		{
+			id: '7',
+			title: m.cool_just_carp_flow(),
+			icon: FileBadge2,
+			href: '/Graffite Profile.pdf',
+			colSpan: 'col-span-1',
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${flooring})`,
+			backgroundPosition: 'center'
+		},
+		{
+			id: '8',
+			title: m.blogs(),
+			icon: BookOpen,
+			href: localizeHref('/blog'),
+			colSpan: 'col-span-2',
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${blogs})`,
+			backgroundPosition: 'left bottom'
+		},
+		{
+			id: '9',
+			title: m.make(),
+			icon: File,
+			href: localizeHref('/order'),
+			colSpan: 'col-span-2',
+			rowSpan: 'row-span-1',
+			backgroundImage: `url(${creating})`,
 			backgroundPosition: 'center'
 		}
 	];
