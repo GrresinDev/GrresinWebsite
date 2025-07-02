@@ -94,13 +94,27 @@
 <div
 	class="relative aspect-square w-full overflow-hidden rounded-lg border bg-card-foreground/5 shadow-inner"
 >
-	<svg width="0" height="0" class="absolute">
+	<!--<svg width="0" height="0" class="absolute">
 		<defs>
 			{#if texture}
 				<pattern id={textureId} patternUnits="userSpaceOnUse" width="200" height="200">
 					<image href={texture} x="0" y="0" width="200" height="200" />
 				</pattern>
 			{/if}
+		</defs>
+	</svg>-->
+	<svg class="absolute h-0 w-0">
+		<defs>
+			<pattern id={textureId} patternUnits="userSpaceOnUse" width="100" height="100">
+				<image
+					href={texture}
+					xlink:href={texture}
+					width="100"
+					height="100"
+					crossorigin="anonymous"
+					preserveAspectRatio="xMidYMid slice"
+				/>
+			</pattern>
 		</defs>
 	</svg>
 

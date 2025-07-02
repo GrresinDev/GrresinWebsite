@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { Check } from '@lucide/svelte';
-
+	import bento from '$lib/assets/images/shop.webp';
 	import { cn } from '$lib/utils';
 
 	let {
-		selectedColor,
+		selectedColor = $bindable(),
 		onColorChange,
-		selectedTexture,
+		selectedTexture = $bindable(),
 		onTextureChange
 	}: {
 		selectedColor: string;
@@ -27,7 +27,7 @@
 	const textures = [
 		{
 			name: 'Classic Terrazzo',
-			value: 'https://placehold.co/100x100.png',
+			value: bento,
 			hint: 'terrazzo texture'
 		},
 		{ name: 'Marble Flake', value: 'https://placehold.co/100x100.png', hint: 'marble texture' },
@@ -87,7 +87,6 @@
 								: 'border-transparent hover:border-muted-foreground'
 						)}
 					>
-					
 						<img
 							src={texture.value}
 							alt={texture.name}

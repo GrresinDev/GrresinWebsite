@@ -4,13 +4,13 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Eye } from '@lucide/svelte';
 	import type { ProjectWithThumbNail } from './interface/project';
-	import { getLocale } from './paraglide/runtime';
+	import { getLocale, localizeHref } from './paraglide/runtime';
 
 	let { project }: { project: ProjectWithThumbNail } = $props();
 	let showAfter = $state(false);
 </script>
 
-<a href={`/projects/${project.slug}`} class="group block h-full">
+<a href={localizeHref(`/projects/${project.slug}`)} class="group block h-full">
 	<Card.Root
 		class="flex h-full flex-col overflow-hidden bg-card shadow-lg transition-shadow duration-300 ease-in-out group-hover:shadow-xl"
 	>

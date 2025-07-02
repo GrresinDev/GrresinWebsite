@@ -4,7 +4,8 @@
 	import { m } from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
 
-	let { faq }: { faq: FAQModel[] } = $props();
+	let { faq, togglesearch }: { faq: FAQModel[]; togglesearch: () => void } = $props();
+	let value = $state('');
 </script>
 
 <!-- FAQ -->
@@ -20,7 +21,6 @@
 					class=" font-heading myshadow text-5xl font-bold tracking-tight drop-shadow-md dark:text-white md:text-6xl md:leading-tight lg:text-7xl"
 				>
 					{m.each_solid_lobster_yell()}
-
 					<hr class="ml-auto mt-2 block h-1 w-full bg-blue-400" />
 				</h2>
 				<p class="mt-1 hidden text-gray-600 dark:text-neutral-400 md:block">
@@ -32,22 +32,36 @@
 
 		<div class="md:col-span-3">
 			<!-- Accordion -->
-			<Accordion.Root type="single" class=" divide-gray-200  dark:divide-neutral-700">
+			<Accordion.Root type="single" class="divide-gray-200 dark:divide-neutral-700">
 				{#each faq as faq}
 					<Accordion.Item>
 						<Accordion.Trigger
-							class="focus:outline-hidden group inline-flex w-full items-center justify-between gap-x-3 rounded-lg pb-3 text-start font-semibold text-gray-800 transition hover:text-gray-500  dark:text-neutral-200   md:text-3xl"
+							class="focus:outline-hidden group inline-flex w-full items-center justify-between gap-x-3 rounded-lg pb-3 text-start font-semibold text-gray-800 transition hover:text-gray-500  dark:text-neutral-200 md:text-3xl"
 							>{getLocale() === 'ar' ? faq.question_ar : faq.question}</Accordion.Trigger
 						>
-						<Accordion.Content class="w-full overflow-hidden"
-							><p class="text-xl">
+						<Accordion.Content class="w-full overflow-hidden">
+							<p class="text-xl">
 								{getLocale() === 'ar' ? faq.answer_ar : faq.answer}
-							</p></Accordion.Content
-						>
+							</p>
+						</Accordion.Content>
 					</Accordion.Item>
 				{/each}
 			</Accordion.Root>
 
+			<!-- Input placed *after* Accordion -->
+			<input
+				type="text"
+				placeholder={m.hour_each_elk_boost()}
+				onclick={(e) => {
+					value = '';
+					togglesearch();
+				}}
+				bind:value
+				oninput={(e) => {
+					value = '';
+				}}
+				class="mt-6 w-full rounded-md border border-[#a71580] bg-transparent px-4 py-2 text-lg text-gray-800 placeholder-black focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:placeholder-neutral-400"
+			/>
 			<!-- End Accordion -->
 		</div>
 		<!-- End Col -->

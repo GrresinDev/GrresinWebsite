@@ -13,7 +13,10 @@ export interface ProjectModel {
 	slug: string;
 	type: string;
 }
-
+export interface ProjectWithThumbNail extends ProjectModel {
+	before_thumbnail: string | null;
+	after_thumbnail: string | null;
+}
 export interface ProjecctTypeModel {
 	collectionId: string;
 	collectionName: string;
@@ -24,10 +27,7 @@ export interface ProjecctTypeModel {
 	updated: Date;
 }
 
-export interface ProjectWithThumbNail extends ProjectModel {
-	before_thumbnail: string | null;
-	after_thumbnail: string | null;
-}
+
 
 export interface ProjectsProductsModel {
 	collectionId: string;

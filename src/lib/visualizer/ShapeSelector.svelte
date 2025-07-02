@@ -12,7 +12,7 @@
 	import * as ToggleGroup from '$lib/components/ui/toggle-group/index.js';
 
 	let {
-		selectedShapes,
+		selectedShapes = $bindable(),
 		onSelectionChange
 	}: { selectedShapes: string[]; onSelectionChange: (shapes: string[]) => void } = $props();
 
@@ -35,7 +35,7 @@
 <ToggleGroup.Root
 	type="multiple"
 	variant="outline"
-	value={selectedShapes}
+	bind:value={selectedShapes}
 	onValueChange={handleValueChange}
 	class="grid grid-cols-3 gap-2"
 >

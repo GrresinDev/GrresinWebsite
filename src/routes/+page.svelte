@@ -1,20 +1,4 @@
 <script lang="ts">
-	/* 
-sales to point of sales
-start page sales point of project and out for arts with some description and then view it all
-add an arts for bento grid 
-products to art and art section adn scroll view 
-projects to projects sectoin 
-parteners: Logo Only
-
-
-
-FAQS: Must Be Aan  ASK and answer form with ai an ?
-"Ask Me ?" 
-
-
-	
-	*/
 	import toast from 'svelte-french-toast';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
@@ -36,10 +20,14 @@ FAQS: Must Be Aan  ASK and answer form with ai an ?
 	import { inview } from 'svelte-inview';
 	import Cards from '$lib/Cards.svelte';
 	import Clients from '$lib/components/Clients.svelte';
+	import Search from '$lib/search/gptsearch.svelte';
 
 	let statview = $state(false);
 	let loading = $state(false);
-
+	let isOpen = $state(false);
+	function togglesearch() {
+		isOpen = true;
+	}
 	let { data, form }: PageProps = $props();
 	$effect(() => {
 		if (form) {
@@ -270,7 +258,7 @@ FAQS: Must Be Aan  ASK and answer form with ai an ?
 		</span>
 	</h1>
 
-	<Clients partner={data.partenerWithThumb}/>
+	<Clients partner={data.partenerWithThumb} />
 </section>
 
 <!--Statics Section-->
@@ -297,9 +285,11 @@ FAQS: Must Be Aan  ASK and answer form with ai an ?
 
 <section id="faq" class="my-4">
 	<Empty items={data.faq}>
-		<Faq faq={data.faq} />
+		<Faq faq={data.faq} {togglesearch} />
 	</Empty>
 </section>
+
+<Search bind:isOpen />
 
 <!--Contact Section-->
 <section class="my-4">
