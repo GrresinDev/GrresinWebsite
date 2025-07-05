@@ -14,8 +14,7 @@
 		PencilRuler,
 		type Icon as IconType
 	} from '@lucide/svelte';
-
-
+	import partner from '$lib/assets/images/partner.webp';
 
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
@@ -85,7 +84,6 @@
 		}
 	});
 
-
 	const CareerCardPromise = import('$lib/components/CareerCard.svelte');
 	const CarouselPromise = import('$lib/components/Carousel.svelte');
 </script>
@@ -113,19 +111,17 @@
 	<link rel="preload" href="https://picsum.photos/200" as="image" />
 	<link rel="preload" href={logo} as="image" />
 
-	<link rel="preconnect" href="https://fonts.googleapis.com"  />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
 </svelte:head>
 
 <section class="">
 	<div class="relative z-10 max-w-full">
-		
-			{#await CarouselPromise then M}
-				{@const Carousel = M.default}
-				<Carousel />
-			{:catch error}
-				<p>Failed to load carousel: {error.message}</p>
-			{/await}
-		
+		{#await CarouselPromise then M}
+			{@const Carousel = M.default}
+			<Carousel />
+		{:catch error}
+			<p>Failed to load carousel: {error.message}</p>
+		{/await}
 	</div>
 </section>
 
@@ -201,7 +197,7 @@
 						<img
 							loading="lazy"
 							class="h-full w-full rounded-full object-cover"
-							src="https://picsum.photos/200"
+							src={partner}
 							alt="jobs "
 						/>
 					</div>

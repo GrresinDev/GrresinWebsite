@@ -27,7 +27,9 @@
 				{getLocale() === 'ar' ? product.name_ar : product.name}
 			</h5>
 
-			<p class="overflow-auto text-center text-[13px] text-white sm:text-sm md:text-xs lg:text-sm">
+			<p
+				class="max-h-[120px] overflow-y-auto overflow-x-hidden text-center text-[13px] text-white sm:text-sm md:text-xs lg:text-sm"
+			>
 				{getLocale() === 'ar' ? product.description_ar : product.description}
 			</p>
 		</div>

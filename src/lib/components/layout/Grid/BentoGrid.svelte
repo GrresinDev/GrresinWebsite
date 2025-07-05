@@ -37,105 +37,7 @@
 		className?: string;
 		backgroundPosition: string;
 	}
-	/*let items: GridItem[] = [
-		{
-			id: '1',
-			title: m.shop(),
-			icon: ShoppingCart,
-			href: 'https://shop.grresin.com/',
-			colSpan: 'col-span-1',
-			rowSpan: 'row-span-3',
-			backgroundImage: `url(${bento})`,
 
-			backgroundPosition: 'center'
-		},
-		{
-			id: '2',
-			title: m.partner(),
-			icon: Users,
-			href: localizeHref('/sales'),
-			colSpan: 'col-span-1',
-			rowSpan: 'row-span-1',
-			backgroundImage: `url(${partner})`,
-
-			backgroundPosition: 'center'
-		},
-		{
-			id: '3',
-			title: m.projects(),
-			icon: ClipboardList,
-			href: localizeHref('/projects'),
-			colSpan: 'col-span-1',
-			rowSpan: 'row-span-1',
-			backgroundImage: `url(${projects})`,
-			backgroundPosition: 'center'
-		},
-		{
-			id: '4',
-			title: m.about(),
-			icon: Info,
-			href: localizeHref('/about'),
-			colSpan: 'col-span-2',
-			rowSpan: 'row-span-1',
-			backgroundImage: `url(${aboutus})`,
-			backgroundPosition: 'top'
-		},
-		{
-			id: '5',
-			title: m.warm_fun_panther_honor(),
-			icon: ChartSpline,
-			href: localizeHref('/sales'),
-			colSpan: 'col-span-2',
-			rowSpan: 'row-span-1',
-			backgroundImage: `url(${sales})`,
-
-			backgroundPosition: 'center'
-		},
-		{
-			id: '6',
-			title: m.products(),
-			icon: Tag,
-			href: localizeHref('#products'),
-
-			colSpan: 'col-span-1',
-			rowSpan: 'row-span-1',
-			backgroundImage: `url(${products})`,
-
-			backgroundPosition: 'center'
-		},
-		{
-			id: '7',
-			title: m.cool_just_carp_flow(),
-			icon: FileBadge2,
-			href: '/Graffite Profile.pdf',
-			colSpan: 'col-span-1',
-			rowSpan: 'row-span-1',
-			backgroundImage: `url(${flooring})`,
-			backgroundPosition: 'center'
-		},
-		{
-			id: '8',
-			title: m.blogs(),
-			icon: BookOpen,
-			href: '#top',
-			colSpan: 'col-span-2',
-			rowSpan: 'row-span-1',
-			backgroundImage: `url(${blogs})`,
-
-			backgroundPosition: 'left bottom'
-		},
-		{
-			id: '9',
-			title: m.make(),
-			icon: File,
-			href: localizeHref('/order'),
-			colSpan: 'col-span-2',
-			rowSpan: 'row-span-1',
-			backgroundImage: `url(${creating})`,
-
-			backgroundPosition: 'center'
-		}
-	];*/
 	let items: GridItem[] = [
 		{
 			id: '1',
@@ -242,7 +144,6 @@
 	];
 </script>
 
-<!-- Desktop & Tablet View -->
 <div class="hidden h-full w-full items-center justify-center md:flex">
 	<div class="grid h-full w-full grid-cols-5 grid-rows-3 gap-4 p-2">
 		{#each items as item (item.id)}
