@@ -292,7 +292,7 @@
 <Search bind:isOpen />
 
 <!--Contact Section-->
-<section class="my-4">
+<section id="contact" class="my-0">
 	<div class=" flex-row-reverse overflow-hidden rounded-lg shadow-xl lg:flex">
 		<div class="flex w-full items-center justify-start p-8 lg:w-1/2 ltr:pr-0 rtl:pl-0">
 			<ContactCarousel />
