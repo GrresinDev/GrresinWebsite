@@ -23,7 +23,7 @@
 		animation: 1s spin linear infinite;
 	}
 	.loader:after {
-		color: #ff3d00;
+		color: #a71580;
 		transform: rotateY(70deg);
 		animation-delay: 0.4s;
 	}

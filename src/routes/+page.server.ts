@@ -75,8 +75,7 @@ export const actions: Actions = {
 			message: rawData.message
 		});
 
-		// Early return on validation failure
-		if (!result.success) {
+	    	if (!result.success) {
 			const fieldErrors = result.error.formErrors.fieldErrors;
 			const errorResponse = Object.entries(fieldErrors).reduce(
 				(acc, [field, errors]) => {

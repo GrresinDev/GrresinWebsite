@@ -4,10 +4,7 @@ import type { PageServerLoad } from './$types';
 import { ClientResponseError } from 'pocketbase';
 import { error } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ locals, setHeaders }) => {
-	setHeaders({
-		'Cache-Control': `max-age=0, s-maxage=${60 * 60}`
-	});
+export const load: PageServerLoad = async ({ locals }) => {
 	const pb = locals.pb;
 
 	try {
@@ -17,6 +14,7 @@ export const load: PageServerLoad = async ({ locals, setHeaders }) => {
 				pb.collection('posts').getFirstListItem<PostModel>('', { sort: '-created' }),
 				pb.collection('website_images').getFirstListItem('name="blogs_carousel"')
 			]);
+
 		const carouselImageUrls = imagesCarousel.images.map((record) =>
 			pb.files.getURL(imagesCarousel, record)
 		);
@@ -38,7 +36,6 @@ export const load: PageServerLoad = async ({ locals, setHeaders }) => {
 		};
 	} catch (e: unknown) {
 		console.error('Error fetching or processing data in load function:', e);
-
 		if (e instanceof ClientResponseError) {
 			if (e.isAbort) {
 				error(408, 'Request timed out while loading page content.');

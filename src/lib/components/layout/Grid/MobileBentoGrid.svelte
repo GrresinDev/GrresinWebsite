@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Icon as IconType } from '@lucide/svelte';
 
-	import { cubicOut } from 'svelte/easing';
+	
 
 	interface GridItem {
 		id: string;

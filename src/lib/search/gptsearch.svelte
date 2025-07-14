@@ -6,7 +6,7 @@
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { fade } from 'svelte/transition';
 
-	// Define a type for the search results, now including Arabic fields
+	
 	type SearchResult = {
 		slug: string;
 		title: string;

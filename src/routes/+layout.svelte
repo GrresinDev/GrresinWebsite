@@ -2,14 +2,12 @@
 	import '../app.css';
 	import { Toaster } from 'svelte-french-toast';
 	import Navbar from '$lib/components/layout/Navbar.svelte';
-	import { locales, localizeHref } from '$lib/paraglide/runtime';
 
 	import ScrollProgress from '$lib/ScrollProgress.svelte';
 	import Loader from '$lib/PageLoader.svelte';
-
 	import { fade } from 'svelte/transition';
 	import { onNavigate } from '$app/navigation';
-	import { page, navigating } from '$app/state';
+	import { navigating } from '$app/state';
 
 	let loadingNavigatoion = $state(false);
 	let timer: NodeJS.Timeout | null = null;
@@ -61,12 +59,6 @@
 
 <div>
 	{@render children()}
-</div>
-
-<div style="display:none">
-	{#each locales as locale}
-		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
-	{/each}
 </div>
 
 <style>

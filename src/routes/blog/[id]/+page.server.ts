@@ -12,13 +12,11 @@ export const load: PageServerLoad = async ({ params, locals, setHeaders }) => {
     const pb = locals.pb;
 
     try {
-        // Fetch the single post based on the slug from params.id
+       
         const post: PostModel = await pb
             .collection('posts')
             .getFirstListItem(`slug="${params.id}"`);
 
-        // If the post is found, generate its image URL
-        // (Assuming 'image' is a file field in your PostModel)
         const postWithImageUrl = {
             ...post,
             thumbnail: pb.files.getURL(post, post.image)

@@ -20,7 +20,6 @@
 		"@inlang/cli": "^3.0.0",
 		"@inlang/paraglide-js": "2.0.7",
 		"@lucide/svelte": "^0.482.0",
-		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/adapter-vercel": "^5.7.0",
 		"@sveltejs/enhanced-img": "^0.5.1",
 		"@sveltejs/kit": "^2.16.0",

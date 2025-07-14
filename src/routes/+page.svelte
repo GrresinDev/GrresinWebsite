@@ -7,7 +7,6 @@
 	import art from '$lib/assets/images/art.webp?enhanced';
 	import logo from '$lib/assets/images/Logo.png';
 	import art_second from '$lib/assets/images/art_second.webp?enhanced';
-	import partners from '$lib/assets/images/partners.png';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import GridCard from '$lib/GridCard.svelte';
 	import CountUp from '$lib/components/CountUp.svelte';
@@ -186,7 +185,6 @@
 <section id="art_products">
 	<ScrollArea orientation="horizontal">
 		<div
-			data-lenis-prevent
 			class="flex touch-auto snap-x snap-mandatory flex-nowrap overflow-x-scroll"
 			style="-webkit-overflow-scrolling: touch;"
 		>
@@ -207,7 +205,7 @@
 	</div>
 </Empty>
 
-<section id="art" class="my-20">
+<section id="graffiti-resin-porject-products">
 	<div class="flex flex-col gap-8 md:h-[20rem] md:flex-row-reverse">
 		<div class="h-48 drop-shadow-2xl md:h-full md:basis-3/5">
 			<enhanced:img

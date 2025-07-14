@@ -6,7 +6,7 @@ import { sequence } from '@sveltejs/kit/hooks';
 import { ClientResponseError } from 'pocketbase';
 import { POCKETBASE_URL } from '$env/static/private';
 
-export const pocketBaseHandle: Handle = async ({ event, resolve }) => {
+ const pocketBaseHandle: Handle = async ({ event, resolve }) => {
 	const url = POCKETBASE_URL;
 
 	try {

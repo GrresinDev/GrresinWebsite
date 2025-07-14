@@ -3,14 +3,11 @@
 	import { onDestroy } from 'svelte';
 
 	const { scrollYProgress } = useViewportScroll();
-
-	// Optional explicit cleanup (recommended for complex apps)
 	let unsub: () => void;
 	const init = () => (unsub = scrollYProgress.subscribe(() => {}));
 	init();
-
 	onDestroy(() => {
-		unsub?.(); // Safely unsubscribe
+		unsub?.();
 	});
 </script>
 
@@ -18,7 +15,7 @@
 	<!-- svelte-ignore element_invalid_self_closing_tag -->
 	<div
 		use:motion
-		class="far-long fixed inset-x-0 top-0 z-[100] h-[5px] origin-left bg-[#a71580]"
+		class="far-long fixed inset-x-0 top-0 z-[100] h-[5px] origin-left transform-gpu bg-[#a71580]"
 		style="transform: scaleX({$scrollYProgress});"
 	/>
 </Motion>

@@ -110,7 +110,7 @@
 
 		<div>
 			<h3 class="mb-2 font-semibold">{m.cuddly_factual_lamb_quiz()}</h3>
-		
+
 			<div
 				class="relative z-0 transform-gpu overflow-visible transition-all sm:hover:z-10 sm:hover:scale-110"
 			>
@@ -124,10 +124,14 @@
 							class="flex w-full flex-row space-x-4 no-underline"
 						>
 							<div class="h-24 w-24 flex-shrink-0 sm:w-32">
-								<img class="h-full w-full object-cover" src={data.recentPost.thumbnail} alt="post" />
+								<img
+									class="h-full w-full object-cover"
+									src={data.recentPost.thumbnail}
+									alt="post"
+								/>
 							</div>
 							<div class="flex flex-col justify-center overflow-hidden">
-								<h4 class="font-semibold rtl:mx-2 text-base">
+								<h4 class="text-base font-semibold rtl:mx-2">
 									{getLocale() === 'ar' ? data.recentPost.title_ar : data.recentPost.title}
 								</h4>
 								<p class="mt-1 line-clamp-2 text-sm text-gray-500 rtl:mx-2">
@@ -139,7 +143,6 @@
 				</div>
 			</div>
 		</div>
-		
 	</aside>
 
 	<div class="order-2 md:order-1 md:col-span-2">

@@ -4,11 +4,7 @@
 	import second from '$lib/assets/images/choosen/second.jpg?enhanced';
 
 	import third from '$lib/assets/images/choosen/last.png?enhanced';
-	const images = [
-		{ id: 1, src: first, alt: 'Hero Image' },
-		{ id: 2, src: second, alt: 'Hero Image' },
-		{ id: 3, src: third, alt: 'Hero Image' }
-	];
+	
 	let imgContainer: HTMLElement;
 
 	function stopImageRotation(intervalId: any) {
